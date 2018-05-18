@@ -7,6 +7,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AuthService } from '../auth/auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InterestsModule } from '../interests/interests.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { InterestsModule } from '../interests/interests.module';
   imports: [
     NgbModule,
     SharedModule,
-    InterestsModule
+    InterestsModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent

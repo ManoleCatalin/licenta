@@ -10,6 +10,8 @@ import { HeaderComponent } from './core/header/header.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
+import { PostsRoutingModule } from './posts/posts-routing.module';
+import { PostsModule } from './posts/posts.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { AuthRoutingModule } from './auth/auth-routing.module';
     AuthModule,
     AppRoutingModule,
     AuthRoutingModule,
+    PostsModule,
     PageNotFoundModule,
   ],
   providers: [],
