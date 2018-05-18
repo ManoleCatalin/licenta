@@ -1,0 +1,99 @@
+<!-- <nav class="navbar navbar-dark bg-primary">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Dist</a>
+  </div>
+ 
+   
+    <div ngbDropdown>
+      <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle>
+        Posts
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+        <button class="dropdown-item">Popular</button>
+        <button class="dropdown-item">Favorite</button>
+        <button class="dropdown-item">Latest</button>
+      </div>
+    </div>
+  
+    <div ngbDropdown>
+      <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle>
+        People
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+        <button class="dropdown-item">Subscriptions</button>
+        <button class="dropdown-item">Followers</button>
+      </div>
+    </div>
+    <button class="btn  btn-primary" (click)="open()">My Interests</button>
+
+    <div ngbDropdown>
+      <button class="btn btn-primary" id="dropdownConfig" ngbDropdownToggle>
+        Profile
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+        <button class="dropdown-item">Subscriptions</button>
+        <button class="dropdown-item">Followers</button>
+      </div>
+    </div>
+  
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  <a class="navbar-brand" href="#">Dist</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" href="#" id="postsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" ngbDropdownToggle>
+          Posts
+        </a>
+        <div class="dropdown-menu" aria-labelledby="postsDropdown" ngbDropdownMenu>
+          <a class="dropdown-item" href="#">Popular</a>
+          <a class="dropdown-item" href="#">Favorite</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Latest</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" href="#" id="peopleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" ngbDropdownToggle>
+          People
+        </a>
+        <div class="dropdown-menu" aria-labelledby="peopleDropdown" ngbDropdownMenu>
+          <a class="dropdown-item" href="#">Subscriptions</a>
+          <a class="dropdown-item" href="#">Followers</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="openInterestsModal()">
+          My Interests</a>
+      </li>
+
+    </ul>
+    <span class="navbar-text">
+      Hello there, funkyUser
+    </span>
+   
+    <span class="navbar-text">
+      &nbsp;&nbsp;&nbsp;
+    </span>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          Logout
+          <i class="fa fa-sign-out" aria-hidden="true" title="Logout"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
