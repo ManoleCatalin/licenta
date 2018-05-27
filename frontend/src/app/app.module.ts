@@ -7,16 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { HeaderComponent } from './core/header/header.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 import { PostsRoutingModule } from './posts/posts-routing.module';
 import { PostsModule } from './posts/posts.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
@@ -25,9 +23,9 @@ import { PostsModule } from './posts/posts.module';
     AppRoutingModule,
     AuthRoutingModule,
     PostsModule,
-    PageNotFoundModule,
+    PageNotFoundModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

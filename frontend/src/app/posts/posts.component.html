@@ -1,1 +1,62 @@
-<p>Posts Works</p>
+<ng-template #popContent>Hello</ng-template>
+
+<div class="container" infiniteScroll (scrolled)="onScroll()">
+    <div class="row my-3" *ngFor="let post of posts; let i = index">
+
+        <div class="col-md-8 offset-md-2">
+            <div class="card bg-light">
+                <div class=" text-center card-header bg-primary text-light">
+                    <h4 class="card-title">{{post.title}}</h4>
+                </div>
+                
+                <div class="card-body text-primary">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 d-none d-lg-block">
+                                <div *ngIf="post.thumbnailImgUrl !== ''">
+                                    <img class="rounded float-left text-center" src="{{post.thumbnailImgUrl}}" alt="{{post.title}}" style="max-height: 100px; max-width: 100px;">
+                                </div>
+                            </div>
+                            <div [ngClass]="{'col-md-12': post.thumbnailImgUrl === '', 'col-md-10': post.thumbnailImgUrl !== '' }">
+                                <p class="card-text bg-default text-dark">{{post.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="btn-group">
+                                            <button class="btn btn-link" [disabled]="post.liked">
+                                                    <p class="text-primary"> <i class="fa fa-thumbs-up"> </i>Like</p>
+                                            </button>
+                                            <button class="btn btn-link" [disabled]="post.liked">
+                                                <p class="text-warning"><i class="fa fa-star"></i>Favorite!</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <ng-template #popContent>
+                                        <img class="rounded img-fluid text-center" src="{{post.previewImgUrl}}" alt="{{post.title}}">
+                                    </ng-template>
+                                    <button type="button" class="btn btn-secondary" (click)="displayPreviewModal(i)">
+                                        Preview
+                                    </button>
+                                    <a href="{{post.url}}" target="_blank" class="btn btn-primary">Explore</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
