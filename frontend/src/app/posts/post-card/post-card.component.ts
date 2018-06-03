@@ -17,9 +17,7 @@ export class PostCardComponent implements OnInit {
   }
   displayPreviewModal() {
     const modalRef = this.modalService.open(PreviewPostComponent, {size: 'lg', backdropClass: 'light-blue-backdrop'});
-    modalRef.componentInstance.title = this.post.title;
-    modalRef.componentInstance.imageUrl = this.post.previewImgUrl;
-    modalRef.componentInstance.postUrl = this.post.url;
+    modalRef.componentInstance.parent = this;
   }
 
   markLiked() {

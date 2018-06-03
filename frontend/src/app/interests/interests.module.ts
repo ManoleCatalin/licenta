@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DisplayInterestsComponent } from './display-interests/display-interests.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommentsModule } from '../comments/comments.module';
 
 
 @NgModule({
@@ -10,8 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     FormsModule,
     NgbModule,
+    CommentsModule
   ],
-  declarations: [DisplayInterestsComponent],
+  declarations: [DisplayInterestsComponent,
+],
   exports: [DisplayInterestsComponent],
   entryComponents: [DisplayInterestsComponent]
 })

@@ -1,6 +1,12 @@
-<ng-template #popContent>Hello</ng-template>
-
-<div class="container" infiniteScroll (scrolled)="onScroll()">
-    <app-post-card class="row my-3" [post]="post" *ngFor="let post of posts; let i = index">
-    </app-post-card>
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ng-template #popContent>Hello</ng-template>
+            <div class="container" infiniteScroll (scrolled)="onScroll()">
+                <app-post-card class="row my-2 justify-content-md-center" [post]="post" *ngFor="let post of posts; let i = index">
+                </app-post-card>
+            </div>
+        </div>
+    </div>
 </div>

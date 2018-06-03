@@ -8,13 +8,18 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PreviewPostComponent } from './preview-post/preview-post.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { InterestsModule } from '../interests/interests.module';
+import { CommentsModule } from '../comments/comments.module';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [PostsComponent, PreviewPostComponent,
     PostCardComponent
 ],
   imports: [
+    CommentsModule,
     CommonModule,
+    CoreModule,
     PostsRoutingModule,
     InfiniteScrollModule,
     BrowserModule,

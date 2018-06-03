@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 import { Post } from './post.model';
-import { PreviewPostComponent } from './preview-post/preview-post.component';
+import { HeaderComponent } from '../core/header/header.component';
 
 @Component({
   selector: 'app-posts',

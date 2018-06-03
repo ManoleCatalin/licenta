@@ -1,13 +1,36 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{title}}</h4>
+  <h4 class="modal-title">{{parent.post.title}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-    <img class="rounded img-fluid text-center" src="{{imageUrl}}" alt="{{imageUrl}}">
+  <h4>Description</h4>
+  <p>{{parent.post.description}}</p>
+  <h4>Preview webpage</h4>
+  <img class="border border-primary" src="{{parent.post.previewImgUrl}}" alt="{{parent.post.previewImgUrl}}">
+  <div class="row">
+    <div class="col-md-6">
+      <button class="btn btn-link" title="Like this post!" [disabled]="parent.post.liked" (click)="parent.markLiked()">
+        <p class="text-primary">
+          {{parent.post.likesCount}}
+          <i class="fa fa-thumbs-up"> </i>
+        </p>
+      </button>
+      <button class="btn btn-link" title="Mark this post as favorite!" [disabled]="parent.post.favorite" (click)="parent.markFavorite()">
+        <p class="text-warning">
+          <i class="fa fa-star"></i>
+        </p>
+      </button>
+      <a href="{{parent.post.url}}" target="_blank" class="btn btn-link" title="Explore">
+        <p class="text-warning">
+          <i class="fa fa-link text-danger"></i>
+        </p>
+      </a>
+      <app-comments></app-comments>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
-    <a type="button" class="btn btn-primary" href="{{postUrl}}" target="_blank">Explore</a>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>

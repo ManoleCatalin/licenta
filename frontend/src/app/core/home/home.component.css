@@ -1,0 +1,27 @@
+.slideshow {
+    width: 100%;
+    height: 500px;
+}
+
+.slideshow img {
+  width: 100%;
+  height: auto;
+}
+
+.site-logo {
+
+  color: dodgerblue;
+
+}
+
+.btn {
+    
+    color: dodgerblue;
+    border: solid dodgerblue 2px ;
+}
+  
+  .btn:hover {
+    text-decoration: none;
+    background-color: white;
+    color: dodgerblue;
+  } 

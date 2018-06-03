@@ -1,0 +1,14 @@
+<button type="button" class="btn btn-link" title="Display comments info" 
+(click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+  aria-controls="colapseComments">
+  <p class="text-secondary">
+    <i class="fa fa-comment"></i>
+  </p>
+</button>
+<div class="row" id="colapseComments" [ngbCollapse]="isCollapsed">
+  <div class="card">
+    <div class="card-body">
+      You can collapse this card by clicking Toggle
+    </div>
+  </div>
+</div>

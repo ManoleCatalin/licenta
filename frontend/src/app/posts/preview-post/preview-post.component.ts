@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PostCardComponent } from '../post-card/post-card.component';
+import { CommentsComponent} from '../../comments/comments.component';
 
 @Component({
   selector: 'app-preview-post',
@@ -8,9 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PreviewPostComponent implements OnInit {
 
-  @Input() title;
-  @Input() imageUrl;
-  @Input() postUrl;
+  @Input() parent: PostCardComponent;
 
   constructor(public activeModal: NgbActiveModal) {}
 
