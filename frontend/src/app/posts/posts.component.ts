@@ -29,10 +29,18 @@ export class PostsComponent implements OnInit {
   }
 
   displayPreviewModal(index: number) {
-    const modalRef = this.modalService.open(PreviewPostComponent);
+    const modalRef = this.modalService.open(PreviewPostComponent, {size: 'lg', backdropClass: 'light-blue-backdrop'});
     console.log(index);
     modalRef.componentInstance.title = this.posts[index].title;
     modalRef.componentInstance.imageUrl = this.posts[index].previewImgUrl;
     modalRef.componentInstance.postUrl = this.posts[index].url;
+  }
+
+  markLiked(index: number) {
+    this.posts[index].liked = true;
+  }
+
+  markFavorite(index: number) {
+    this.posts[index].favorite = true;
   }
 }

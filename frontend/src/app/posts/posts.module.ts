@@ -9,10 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PreviewPostComponent } from './preview-post/preview-post.component';
 
 @NgModule({
-  declarations: [PostsComponent,
-    PreviewPostComponent
-],
-  imports: [CommonModule, PostsRoutingModule, InfiniteScrollModule, BrowserModule, FormsModule, NgbModule],
+  declarations: [PostsComponent, PreviewPostComponent],
+  imports: [
+    CommonModule,
+    PostsRoutingModule,
+    InfiniteScrollModule,
+    BrowserModule,
+    FormsModule,
+    NgbModule
+  ],
   exports: [InfiniteScrollModule],
   entryComponents: [PreviewPostComponent]
 })

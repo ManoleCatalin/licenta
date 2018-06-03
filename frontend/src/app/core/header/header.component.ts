@@ -20,12 +20,11 @@ export class HeaderComponent implements OnInit {
 
   openInterestsModal() {
     const modalRef = this.modalService.open(DisplayInterestsComponent);
-    modalRef.componentInstance.name = 'World';
   }
 
   toggleMenu() {
-     this.isCollapsed = !this.isCollapsed;
-   }
+    this.isCollapsed = !this.isCollapsed;
+  }
 
   ngOnInit() {}
 }

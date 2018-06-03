@@ -5,22 +5,21 @@
 
         <div class="col-md-8 offset-md-2">
             <div class="card bg-light">
-                <div class=" text-center card-header bg-primary text-light">
-                    <h4 class="card-title">{{post.title}}</h4>
-                </div>
-                
-                <div class="card-body text-primary">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-2 d-none d-lg-block">
-                                <div *ngIf="post.thumbnailImgUrl !== ''">
-                                    <img class="rounded float-left text-center" src="{{post.thumbnailImgUrl}}" alt="{{post.title}}" style="max-height: 100px; max-width: 100px;">
-                                </div>
-                            </div>
-                            <div [ngClass]="{'col-md-12': post.thumbnailImgUrl === '', 'col-md-10': post.thumbnailImgUrl !== '' }">
-                                <p class="card-text bg-default text-dark">{{post.description}}</p>
+                <div class="container my-2">
+                    <div class="row">
+                        <div class="col-md-1 d-none d-lg-block">
+                            <div *ngIf="post.thumbnailImgUrl !== ''">
+                                <img class="rounded text-center" src="{{post.thumbnailImgUrl}}" alt="{{post.title}}" style="max-height: 100px; max-width: 100px;">
                             </div>
                         </div>
+                        <div [ngClass]="{'col-md-12': post.thumbnailImgUrl === '', 'col-md-11': post.thumbnailImgUrl !== '' }">
+                            <h4 class="my-3 text-center">{{post.title}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-primary">
+                    <div class="container">
+                        <p class="card-text bg-default text-dark">{{post.description}}</p>
                     </div>
                 </div>
                 <div class="">
@@ -30,17 +29,17 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="btn-group">
-                                            <button class="btn btn-link" [disabled]="post.liked">
-                                                    <p class="text-primary"> <i class="fa fa-thumbs-up"> </i>Like</p>
+                                            <button class="btn btn-link" [disabled]="post.liked" (click)="markLiked(i)">
+                                                <p class="text-primary">
+                                                    <i class="fa fa-thumbs-up"> </i>Like</p>
                                             </button>
-                                            <button class="btn btn-link" [disabled]="post.liked">
-                                                <p class="text-warning"><i class="fa fa-star"></i>Favorite!</p>
+                                            <button class="btn btn-link" [disabled]="post.favorite" (click)="markFavorite(i)">
+                                                <p class="text-warning">
+                                                    <i class="fa fa-star"></i>Favorite!</p>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class="col-md-4">
                                 <div class="btn-group">

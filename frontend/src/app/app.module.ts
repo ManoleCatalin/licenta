@@ -12,6 +12,7 @@ import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 import { PostsRoutingModule } from './posts/posts-routing.module';
 import { PostsModule } from './posts/posts.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { PostsModule } from './posts/posts.module';
     BrowserModule,
     NgbModule.forRoot(),
     CoreModule,
+    HttpClientModule,
     AuthModule,
     AppRoutingModule,
     AuthRoutingModule,
