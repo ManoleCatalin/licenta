@@ -1,0 +1,7 @@
+.btn {
+  border: none;
+}
+
+.btn:hover {
+  text-decoration: none;
+}

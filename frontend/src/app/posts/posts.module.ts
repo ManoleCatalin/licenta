@@ -7,9 +7,12 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PreviewPostComponent } from './preview-post/preview-post.component';
+import { PostCardComponent } from './post-card/post-card.component';
 
 @NgModule({
-  declarations: [PostsComponent, PreviewPostComponent],
+  declarations: [PostsComponent, PreviewPostComponent,
+    PostCardComponent
+],
   imports: [
     CommonModule,
     PostsRoutingModule,

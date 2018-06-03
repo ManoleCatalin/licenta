@@ -8,5 +8,7 @@ export class Post {
     public likesCount: number,
     public liked: boolean,
     public favorite: boolean,
+    public authorName: string,
+    public authorId: string
   ) {}
 }

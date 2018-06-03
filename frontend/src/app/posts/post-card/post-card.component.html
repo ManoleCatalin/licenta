@@ -1,0 +1,59 @@
+<div class="col-md-8 offset-md-2">
+  <div class="card bg-light">
+    <div class="container my-2">
+      <div class="row">
+        <div class="col-md-1 d-none d-lg-block">
+          <div *ngIf="post.thumbnailImgUrl !== ''">
+            <img class="rounded text-center" src="{{post.thumbnailImgUrl}}" alt="{{post.title}}" style="max-height: 100px; max-width: 100px;">
+          </div>
+        </div>
+        <div [ngClass]="{'col-md-12': post.thumbnailImgUrl === '', 'col-md-11': post.thumbnailImgUrl !== '' }">
+          <h4 class="my-3 text-center">{{post.title}}</h4>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-md-11">
+          <p class="card-text bg-default text-dark">{{post.description}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-8">
+          <div class="row">
+            <div class="col-md-2">
+
+              <div class="btn-group">
+                <button class="btn btn-link" title="Like this post!" [disabled]="post.liked" (click)="markLiked()">
+                  <p class="text-primary">
+                    {{post.likesCount}}
+                    <i class="fa fa-thumbs-up"> </i>
+                  </p>
+                </button>
+                <button class="btn btn-link" title="Mark this post as favorite!" [disabled]="post.favorite" (click)="markFavorite()">
+                  <p class="text-warning">
+                    <i class="fa fa-star"></i></p>
+                </button>
+                <button class="btn btn-link" title="Display comments info">
+                  <p class="text-secondary">
+                    <i class="fa fa-comment"></i>
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 text-right">
+          <div class="btn-group">
+            <ng-template #popContent>
+              <img class="rounded img-fluid text-center" src="{{post.previewImgUrl}}" alt="{{post.title}}">
+            </ng-template>
+            <button type="button" class="btn btn-link" title="Preview" (click)="displayPreviewModal()">
+                <i class="fa fa-eye text-success "></i>
+            </button>
+            <a href="{{post.url}}" target="_blank" class="btn btn-link" title="Explore">
+              <i class="fa fa-link text-danger"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

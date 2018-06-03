@@ -22,7 +22,9 @@ we looked at how to centralize our AutoMapper mapping definitions in a config cl
       '',
       123,
       true,
-      false
+      false,
+      'Mark123',
+      '123',
     ),
     new Post(
       'Creating sick modals using ng-bootstrap',
@@ -33,18 +35,22 @@ we looked at how to centralize our AutoMapper mapping definitions in a config cl
       '',
       19,
       false,
-      false
+      false,
+      'DannyTheAuthor',
+      '124',
     ),
     new Post(
       'The awsome cpp list',
       'https://github.com/fffaraz/awesome-cpp',
       `awesome-cpp - A curated list of awesome C++ (or C) frameworks, libraries, resources,
-and shiny things. Inspired by awesome-... stuff.`,
+      and shiny things. Inspired by awesome-... stuff.`,
       'https://avatars2.githubusercontent.com/u/895678?s=400&v=4',
       '',
-      10392,
+      1392,
       false,
-      true
+      true,
+      'IannisMore',
+      '125',
     )
   ];
 
