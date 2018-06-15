@@ -1,42 +1,38 @@
-﻿using System.Collections.Generic;
-using Core.Domain;
+﻿using Core.Domain;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebApi.Models;
-using WebApi.Models.Post;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostsController : ControllerBase
+    public class InterestsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public PostsController(IUnitOfWork unitOfWork)
+        public InterestsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public ActionResult<List<ReadPostModel>> Get(int? pageIndex, int? pageSize)
+        public ActionResult<List<ReadInterestModel>> Get(int? pageIndex, int? pageSize)
         {
             if (pageIndex == null || pageSize == null)
             {
                 return UnprocessableEntity();
             }
 
-            var posts = _unitOfWork.Posts.Get((int)pageIndex, (int)pageSize);
-            var readPosts = new List<ReadPostModel>();
-            foreach (var post in posts)
+            var interests = _unitOfWork.Interests.Get((int)pageIndex, (int)pageSize);
+            var readPosts = new List<ReadInterestModel>();
+            foreach (var interest in interests)
             {
-                readPosts.Add(new ReadPostModel()
+                readPosts.Add(new ReadInterestModel()
                 {
-                    Id = post.Id,
-                    CreatedAt = post.CreateAt,
-                    Description = post.Description,
-                    SourceUrl = post.SourceUrl,
-                    Title = post.Title,
-                    UserId = post.Author.Id
+                   Id = interest.Id,
+                   Name = interest.Name,
+                   ThumbnailImgUrl = interest.ThumbnailImgUrl      
                 });
             }
 
@@ -47,7 +43,12 @@ namespace WebApi.Controllers
         [HttpPost]
         public ActionResult<Post> Create([FromBody] CreatePostModel post)
         {
-            var user = _unitOfWork.Users.Get(post.UserId);
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity();
+            }
+
+                var user = _unitOfWork.Users.Get(post.UserId);
             if (null == user)
             {
                 return BadRequest();

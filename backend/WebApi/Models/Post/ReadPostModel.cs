@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApi.Models.Post
 {
@@ -13,6 +11,6 @@ namespace WebApi.Models.Post
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public Guid UserId { get; set; }
-        public ICollection<ReadInterest> Interests { get; set; }
+        public ICollection<ReadInterestModel> Interests { get; set; }
     }
 }

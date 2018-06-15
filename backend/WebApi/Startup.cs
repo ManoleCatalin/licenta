@@ -1,4 +1,6 @@
 ﻿using Business.Repository;
+using Core.Interfaces;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,8 @@ namespace WebApi
             services.AddScoped<DbContext, DbService>();
             services.AddDbContext<DbService>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();

@@ -3,43 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DbService))]
-    partial class DbServiceModelSnapshot : ModelSnapshot
+    [Migration("20180614144635_post-interests-migration")]
+    partial class postinterestsmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Core.Domain.Favorite", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<Guid?>("PostId");
-
-                    b.Property<Guid?>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Favorites");
-                });
 
             modelBuilder.Entity("Core.Domain.Interest", b =>
                 {
@@ -57,28 +37,6 @@ namespace Persistence.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Interests");
-                });
-
-            modelBuilder.Entity("Core.Domain.Like", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<Guid?>("PostId");
-
-                    b.Property<Guid?>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Core.Domain.Post", b =>
@@ -127,33 +85,11 @@ namespace Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Core.Domain.Favorite", b =>
-                {
-                    b.HasOne("Core.Domain.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostId");
-
-                    b.HasOne("Core.Domain.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Core.Domain.Interest", b =>
                 {
                     b.HasOne("Core.Domain.Post")
                         .WithMany("Interests")
                         .HasForeignKey("PostId");
-                });
-
-            modelBuilder.Entity("Core.Domain.Like", b =>
-                {
-                    b.HasOne("Core.Domain.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostId");
-
-                    b.HasOne("Core.Domain.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Core.Domain.Post", b =>

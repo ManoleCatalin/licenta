@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Configuration;
 
 namespace Persistence
 {
@@ -12,6 +13,9 @@ namespace Persistence
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Interest> Interests { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
 
         private const string _isDeletedProperty = "IsDeleted";
         private static readonly MethodInfo _propertyMethod = typeof(EF).GetMethod(nameof(EF.Property),
@@ -48,8 +52,11 @@ namespace Persistence
                 }
             }
 
-           // modelBuilder.ApplyConfiguration(new UserConfiguration());
-           // modelBuilder.ApplyConfiguration(new PostConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
+            modelBuilder.ApplyConfiguration(new InterestConfiguration());
+            modelBuilder.ApplyConfiguration(new LikeConfiguration());
+            modelBuilder.ApplyConfiguration(new FavoriteConfiguration());
         }
 
         public override int SaveChanges()

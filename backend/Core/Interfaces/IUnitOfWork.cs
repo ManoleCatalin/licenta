@@ -1,7 +1,6 @@
-﻿using Core.Interfaces;
-using System;
+﻿using System;
 
-namespace Business.Repository
+namespace Core.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Business.Repository;
 using Core.Domain;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 
@@ -17,9 +17,14 @@ namespace WebApi.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
-        public ActionResult<List<ReadUserModel>> GetAll()
+        public ActionResult<List<ReadUserModel>> Get(int? pageIndex, int? pageSize)
         {
-            var users = _unitOfWork.Users.GetAll();
+            if (pageIndex == null || pageSize == null)
+            {
+                return UnprocessableEntity();
+            }
+
+            var users = _unitOfWork.Users.Get((int)pageIndex, (int)pageSize);
             var readUsers = new List<ReadUserModel>();
             foreach (var user in users)
             {

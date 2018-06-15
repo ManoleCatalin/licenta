@@ -14,7 +14,6 @@ namespace Core.Configuration
             builder.Property(p => p.Description).HasMaxLength(500).IsRequired();
             builder.Property(p => p.CreateAt).IsRequired();
             builder.Property(p => p.Author).IsRequired();
-            builder.Property(p => p.Interests.Count != 0);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Core.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace WebApi.Models

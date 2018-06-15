@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Business.Repository
 {
@@ -8,6 +9,11 @@ namespace Business.Repository
     {
         public InterestRepository(DbContext context) : base(context)
         {
+        }
+
+        public int Count()
+        {
+            return Context.Set<Interest>().Count();
         }
     }
 }

@@ -9,6 +9,6 @@ namespace WebApi.Models.Post
         public string Title { get; set; }
         public string SourceUrl { get; set; }
         public string Description { get; set; }
-        public ICollection<ReadInterest> Interests { get; set; }
+        public ICollection<ReadInterestModel> Interests { get; set; }
     }
 }

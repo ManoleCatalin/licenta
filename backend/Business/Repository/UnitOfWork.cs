@@ -13,6 +13,7 @@ namespace Business.Repository
             _context = context;
             Users = new UserRepository(_context);
             Posts = new PostRepository(_context);
+            Interests = new InterestRepository(_context);
         }
 
         public IUserRepository Users { get; private set; }

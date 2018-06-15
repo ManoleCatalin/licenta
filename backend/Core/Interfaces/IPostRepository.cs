@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 
-namespace Business.Repository
+
+namespace Core.Interfaces
 {
     public interface IPostRepository : IRepository<Post>
     {

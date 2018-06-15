@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Repository

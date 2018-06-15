@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,10 @@ namespace Business.Repository
             return _entities.Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> Get(int pageIndex, int pageSize)
         {
-            return _entities.ToList();
+            return _entities.Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToList();
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
