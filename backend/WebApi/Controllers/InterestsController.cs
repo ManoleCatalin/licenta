@@ -70,7 +70,7 @@ namespace WebApi.Controllers
             {
                 CreateAt = user.CreatedAt,
                 Description = post.Description,
-                Author = user,
+                User = user,
                 Interests = interests,
                 SourceUrl = post.SourceUrl,
                 Title = post.Title

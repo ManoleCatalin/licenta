@@ -11,7 +11,9 @@ namespace Core.Domain
         public string SourceUrl { get; set; }
         public string Description { get; set; }
         public DateTime CreateAt { get; set; }
-        public User Author { get; set; }
+        public User User { get; set; }
         public ICollection<Interest> Interests { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
+        public ICollection<Like> Likes { get; set; }
     }
 }

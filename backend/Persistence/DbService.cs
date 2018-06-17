@@ -6,12 +6,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Persistence
 {
-    public sealed class DbService : DbContext
+    public sealed class DbService : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Interest> Interests { get; set; }
         public DbSet<Like> Likes { get; set; }

@@ -13,7 +13,6 @@ namespace Core.Configuration
             builder.Property(p => p.Title).HasMaxLength(256).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(500).IsRequired();
             builder.Property(p => p.CreateAt).IsRequired();
-            builder.Property(p => p.Author).IsRequired();
         }
     }
 }

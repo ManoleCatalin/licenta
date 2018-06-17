@@ -10,8 +10,16 @@ namespace Core.Configuration
         {
             builder.HasKey(u => u.Id);
             builder.Property(u => u.CreatedAt).IsRequired();
-            builder.Property(u => u.User).IsRequired();
-            builder.Property(u => u.Post).IsRequired();
+
+            builder
+            .HasOne(u => u.User)
+            .WithMany(u => u.Likes)
+            .IsRequired();
+
+            builder
+           .HasOne(u => u.Post)
+           .WithMany(u => u.Likes)
+           .IsRequired();
         }
     }
 }

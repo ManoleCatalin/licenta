@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Core.Domain;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Models.Post;
 
 namespace WebApi.Controllers
 {
+    [Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
@@ -36,7 +38,7 @@ namespace WebApi.Controllers
                     Description = post.Description,
                     SourceUrl = post.SourceUrl,
                     Title = post.Title,
-                    UserId = post.Author.Id
+                    UserId = post.User.Id
                 });
             }
 
@@ -69,7 +71,7 @@ namespace WebApi.Controllers
             {
                 CreateAt = user.CreatedAt,
                 Description = post.Description,
-                Author = user,
+                User = user,
                 Interests = interests,
                 SourceUrl = post.SourceUrl,
                 Title = post.Title

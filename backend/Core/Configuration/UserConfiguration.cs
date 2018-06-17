@@ -9,7 +9,7 @@ namespace Core.Configuration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.Username).HasMaxLength(25).IsRequired();
+            builder.Property(u => u.UserName).HasMaxLength(25).IsRequired();
             builder.Property(u => u.Email).HasMaxLength(256).IsRequired();
             builder.Property(u => u.FirstName).HasMaxLength(25).IsRequired();
             builder.Property(u => u.LastName).HasMaxLength(25).IsRequired();

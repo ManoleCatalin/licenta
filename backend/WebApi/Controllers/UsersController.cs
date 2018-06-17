@@ -34,7 +34,7 @@ namespace WebApi.Controllers
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Username = user.Username
+                    Username = user.UserName
                 });
             }
 
@@ -52,7 +52,7 @@ namespace WebApi.Controllers
             return Ok(new ReadUserModel() { Id = user.Id,
                 CreatedAt = user.CreatedAt,
                 Email = user.Email,
-                Username = user.Username,
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName
             });
@@ -64,7 +64,7 @@ namespace WebApi.Controllers
             // user.Id = Guid.NewGuid();
             User userFromModel = new User()
             {
-                Username = user.Username,
+                UserName = user.Username,
                 Email = user.Email,
                 FirstName = user.Email,
                 LastName = user.LastName,
