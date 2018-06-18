@@ -7,6 +7,8 @@ namespace Core.Interfaces
         IUserRepository Users { get; }
         IPostRepository Posts { get; }
         IInterestRepository Interests { get; }
+        IPostInterestRepository PostInterests { get; }
+
         int Complete();
     }
 }

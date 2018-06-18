@@ -1,5 +1,6 @@
 ﻿using AuthService;
 using AuthService.Helpers;
+using AutoMapper;
 using Business.Repository;
 using Core.Domain;
 using Core.Interfaces;
@@ -14,9 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
+using WebApi.Swagger;
 
 namespace WebApi
 {
@@ -32,29 +33,16 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddScoped<DbContext, DbService>();
             services.AddDbContext<DbService>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddAutoMapper();
             services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info
-                {
-                    Version = "",
-                    Title = "",
-                    Description = "",
-                    TermsOfService = "",
-                    Contact = new Contact()
-                     { Name = "",
-                        Email = "",
-                        Url = "" }
-                });
-            });
+            services.AddSwaggerDocumentation();
 
             ConfigureAuthentication(services);
         }
@@ -127,6 +115,7 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwaggerDocumentation();
             }
             else
             {
@@ -137,12 +126,6 @@ namespace WebApi
             app.UseAuthentication();
 
             app.UseMvc();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
         }
     }
 }

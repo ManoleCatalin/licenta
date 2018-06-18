@@ -1,11 +1,13 @@
 ﻿using Core.Domain;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebApi.Models;
 
 namespace WebApi.Controllers
 {
+    //[Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
     public class InterestsController : ControllerBase
@@ -37,46 +39,6 @@ namespace WebApi.Controllers
             }
 
             return Ok(readPosts);
-        }
-
-
-        [HttpPost]
-        public ActionResult<Post> Create([FromBody] CreatePostModel post)
-        {
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity();
-            }
-
-                var user = _unitOfWork.Users.Get(post.UserId);
-            if (null == user)
-            {
-                return BadRequest();
-            }
-
-            var interests = new List<Interest>();
-            foreach (var interestGuid in post.Interests)
-            {
-                var interestById = _unitOfWork.Interests.Get(interestGuid);
-                if (interestById == null)
-                {
-                    return BadRequest();
-                }
-
-                interests.Add(interestById);
-            }
-
-            var createdPost = new Post()
-            {
-                CreateAt = user.CreatedAt,
-                Description = post.Description,
-                User = user,
-                Interests = interests,
-                SourceUrl = post.SourceUrl,
-                Title = post.Title
-            };
-
-            return new ObjectResult(post) { StatusCode = 201 };
         }
     }
 }

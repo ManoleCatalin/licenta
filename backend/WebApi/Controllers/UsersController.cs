@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Core.Domain;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    [Produces("application/json")]
+    //[Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     public class UsersController : Controller
     {

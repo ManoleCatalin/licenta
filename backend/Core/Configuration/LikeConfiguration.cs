@@ -13,13 +13,11 @@ namespace Core.Configuration
 
             builder
             .HasOne(u => u.User)
-            .WithMany(u => u.Likes)
-            .IsRequired();
+            .WithMany(u => u.Likes);
 
             builder
            .HasOne(u => u.Post)
-           .WithMany(u => u.Likes)
-           .IsRequired();
+           .WithMany(u => u.Likes);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Core.Ordering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Business.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
-        private readonly DbSet<TEntity> _entities;
+        protected readonly DbSet<TEntity> _entities;
 
         public Repository(DbContext context)
         {
@@ -23,9 +24,17 @@ namespace Business.Repository
             return _entities.Find(id);
         }
 
-        public IEnumerable<TEntity> Get(int pageIndex, int pageSize)
+        virtual public IEnumerable<TEntity> Get(int pageIndex, int pageSize, Ordering<TEntity> ordering = null)
         {
-            return _entities.Skip((pageIndex - 1) * pageSize)
+            var entities = _entities.AsQueryable();
+
+            if (ordering != null)
+            {
+                entities = ordering.Apply(entities);
+            }
+
+            return entities
+                .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToList();
         }
 
@@ -39,7 +48,7 @@ namespace Business.Repository
             return _entities.SingleOrDefault(predicate);
         }
 
-        public void Add(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             _entities.Add(entity);
         }

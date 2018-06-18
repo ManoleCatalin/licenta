@@ -14,12 +14,13 @@ namespace Core.Configuration
             builder
             .HasOne(u => u.User)
             .WithMany(u => u.Favorites)
-            .IsRequired();
+            .HasForeignKey(u => u.UserId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder
            .HasOne(u => u.Post)
            .WithMany(u => u.Favorites)
-           .IsRequired();
+           .HasForeignKey(u => u.PostId);
         }
     }
 }

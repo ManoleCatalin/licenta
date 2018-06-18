@@ -14,11 +14,13 @@ namespace Business.Repository
             Users = new UserRepository(_context);
             Posts = new PostRepository(_context);
             Interests = new InterestRepository(_context);
+            PostInterests = new PostInterestRepository(_context);
         }
 
         public IUserRepository Users { get; private set; }
         public IPostRepository Posts { get; private set; }
         public IInterestRepository Interests { get; private set; }
+        public IPostInterestRepository PostInterests { get; private set; }
 
         public int Complete()
         {

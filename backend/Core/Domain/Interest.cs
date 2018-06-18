@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Core.Domain
 {
@@ -7,5 +8,7 @@ namespace Core.Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ThumbnailImgUrl { get; set; }
+
+        public ICollection<PostInterest> PostInterests { get; set; }
     }
 }

@@ -12,7 +12,17 @@ namespace Core.Configuration
             builder.Property(p => p.SourceUrl).HasMaxLength(2048).IsRequired();
             builder.Property(p => p.Title).HasMaxLength(256).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(500).IsRequired();
-            builder.Property(p => p.CreateAt).IsRequired();
+            builder.Property(p => p.CreatedAt).IsRequired();
+
+            builder
+            .HasOne(pt => pt.User)
+            .WithMany(t => t.Posts)
+            .HasForeignKey(pt => pt.UserId)
+            .IsRequired();
+
+            builder.HasMany(x => x.Favorites)
+                .WithOne(x => x.Post)
+                .HasForeignKey(x => x.PostId);
         }
     }
 }

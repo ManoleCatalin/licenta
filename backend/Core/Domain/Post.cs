@@ -10,9 +10,10 @@ namespace Core.Domain
         public string Title { get; set; }
         public string SourceUrl { get; set; }
         public string Description { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
-        public ICollection<Interest> Interests { get; set; }
+        public ICollection<PostInterest> PostInterests { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
         public ICollection<Like> Likes { get; set; }
     }

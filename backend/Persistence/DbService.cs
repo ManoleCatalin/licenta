@@ -58,6 +58,7 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new InterestConfiguration());
             modelBuilder.ApplyConfiguration(new LikeConfiguration());
             modelBuilder.ApplyConfiguration(new FavoriteConfiguration());
+            modelBuilder.ApplyConfiguration(new PostInterestConfiguration());
         }
 
         public override int SaveChanges()
