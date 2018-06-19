@@ -1,9 +1,24 @@
 ﻿
 using Core.Domain;
 using Core.Interfaces;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
+class InputPost
+{
+    public string Title { get; set; }
+    public string SourceUrl { get; set; }
+    public string Description { get; set; }
+    public List<string> Interests{ get; set; }
+}
+
+class InputPosts
+{
+    public List<InputPost> Posts { get; set; }
+}
 
 
 namespace Seeder
@@ -23,7 +38,76 @@ namespace Seeder
             if (!_unitOfWork.Interests.Get().Any())
             {
                 InsertInterests();
-            }   
+            }
+
+            if (!_unitOfWork.Users.Get().Any())
+            {
+                InsertUsers();
+            }
+
+            if (!_unitOfWork.Posts.Get().Any())
+            {
+                InsertPosts();
+            }
+        }
+
+        private void InsertUsers()
+        {
+            var interests = _unitOfWork.Interests.Get(1, 300);
+            var userInterests = new List<UserInterest>();
+
+            _unitOfWork.Users.Add(new User { FirstName = "test", LastName = "test", Email = "test@test.com", UserName = "test" });
+            _unitOfWork.Users.Add(new User { FirstName = "other", LastName = "other", Email = "other@other.com", UserName = "other" });
+            _unitOfWork.Complete();
+
+            var users = _unitOfWork.Users.Get(1, 2).ToList();
+
+            foreach (var interest in interests)
+            {
+                _unitOfWork.UserInterests.Add(new UserInterest { InterestId = interest.Id, UserId = users[0].Id });
+                _unitOfWork.UserInterests.Add(new UserInterest { InterestId = interest.Id, UserId = users[1].Id });
+            }
+
+            _unitOfWork.Complete();
+
+        }
+
+        private void InsertPosts()
+        {
+            var basePath = Directory.GetCurrentDirectory();
+            basePath = Directory.GetParent(basePath).FullName;
+            basePath = Directory.GetParent(basePath).FullName;
+            basePath = Directory.GetParent(basePath).FullName;
+            basePath = Path.Combine(basePath, "posts.txt");
+            StreamReader file = new System.IO.StreamReader(basePath);
+            var json = file.ReadToEnd();
+
+            var inputPosts = JsonConvert.DeserializeObject<InputPosts>(json);
+            file.Close();
+
+            var firstUserId = _unitOfWork.Users.Get(1, 1).First().Id;
+            var secondUserId = _unitOfWork.Users.Get(2, 1).First().Id;
+
+            var i = 0;
+
+            
+
+            foreach (var post in inputPosts.Posts)
+            {
+                var interest = _unitOfWork.Interests.Find(x => x.Name.Equals(post.Interests[0])).First();
+
+                _unitOfWork.Posts.Add(new Post {
+                    Description = post.Description,
+                    SourceUrl = post.SourceUrl,
+                    Title = post.Title,
+                    UserId = (i % 2 == 0) ? firstUserId : secondUserId,
+                    PostInterests = new List<PostInterest> { new PostInterest { InterestId = interest.Id } }
+
+                });
+
+                i++;
+                _unitOfWork.Complete();
+            }
         }
 
         private void InsertInterests()

@@ -19,7 +19,7 @@ namespace Business.Repository
             _entities = Context.Set<TEntity>();
         }
 
-        public TEntity Get(Guid id)
+        virtual public TEntity Get(Guid id)
         {
             return _entities.Find(id);
         }

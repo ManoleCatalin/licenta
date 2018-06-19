@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Core.Domain;
 using Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 

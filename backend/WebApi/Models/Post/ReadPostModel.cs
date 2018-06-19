@@ -12,5 +12,7 @@ namespace WebApi.Models.Post
         public DateTime CreatedAt { get; set; }
         public Guid UserId { get; set; }
         public ICollection<ReadInterestModel> Interests { get; set; }
+        public Guid? LikeId { get; set; }
+        public Guid? FavoriteId { get; set; }
     }
 }

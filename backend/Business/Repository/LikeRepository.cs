@@ -1,6 +1,13 @@
-﻿namespace Business.Repository
+﻿using Core.Domain;
+using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace Business.Repository
 {
-    class LikeRepository
+    public class LikeRepository : Repository<Like>, ILikeRepository
     {
+        public LikeRepository(DbContext context) : base(context)
+        {
+        }   
     }
 }

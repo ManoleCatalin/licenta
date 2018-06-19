@@ -13,11 +13,15 @@ namespace Core.Configuration
 
             builder
             .HasOne(u => u.User)
-            .WithMany(u => u.Likes);
+            .WithMany(u => u.Likes)
+            .HasForeignKey(u => u.UserId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder
-           .HasOne(u => u.Post)
-           .WithMany(u => u.Likes);
+            .HasOne(u => u.Post)
+            .WithMany(u => u.Likes)
+            .HasForeignKey(u => u.PostId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

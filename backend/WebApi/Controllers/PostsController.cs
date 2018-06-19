@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Core.Domain;
 using Core.Interfaces;
 using Core.Ordering;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Models.Post;
 
 namespace WebApi.Controllers
 {
-   // [Authorize(Policy = "ApiUser")]
+    // [Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ReadPostModel>> Get(int? pageIndex, int? pageSize, string orderBy)
+        public ActionResult<List<ReadPostModel>> Get(Guid userId, int? pageIndex, int? pageSize, string orderBy)
         {
             if (pageIndex == null || pageSize == null)
             {
@@ -49,7 +49,7 @@ namespace WebApi.Controllers
                 }
             }
 
-            List<Post> posts = (List<Post>)_unitOfWork.Posts.Get((int)pageIndex, (int)pageSize, ordering);
+            var posts = _unitOfWork.GetPostsForUser(userId, (int)pageIndex, (int)pageSize, ordering).ToList();
             var readPosts = _mapper.Map<List<ReadPostModel>>(posts);
             for (int i = 0; i < readPosts.Count; i++)
             {

@@ -12,9 +12,9 @@ namespace Core.Domain
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public Guid UserId { get; set; }
-        public User User { get; set; }
-        public ICollection<PostInterest> PostInterests { get; set; }
-        public ICollection<Favorite> Favorites { get; set; }
-        public ICollection<Like> Likes { get; set; }
+        virtual public User User { get; set; }
+        virtual public ICollection<PostInterest> PostInterests { get; set; }
+        virtual public ICollection<Favorite> Favorites { get; set; }
+        virtual public ICollection<Like> Likes { get; set; }
     }
 }

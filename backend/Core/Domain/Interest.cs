@@ -9,6 +9,6 @@ namespace Core.Domain
         public string Name { get; set; }
         public string ThumbnailImgUrl { get; set; }
 
-        public ICollection<PostInterest> PostInterests { get; set; }
+        virtual public ICollection<PostInterest> PostInterests { get; set; }
     }
 }

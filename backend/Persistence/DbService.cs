@@ -59,6 +59,7 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new LikeConfiguration());
             modelBuilder.ApplyConfiguration(new FavoriteConfiguration());
             modelBuilder.ApplyConfiguration(new PostInterestConfiguration());
+            modelBuilder.ApplyConfiguration(new UserInterestConfiguration());
         }
 
         public override int SaveChanges()
@@ -73,6 +74,11 @@ namespace Persistence
             }
 
             return base.SaveChanges();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Core.Domain;
-using Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebApi.Models;

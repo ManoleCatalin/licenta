@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DbService))]
-    partial class DbServiceModelSnapshot : ModelSnapshot
+    [Migration("20180618190439_fk-likes")]
+    partial class fklikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,23 +188,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Core.Domain.UserInterest", b =>
-                {
-                    b.Property<Guid>("UserId");
-
-                    b.Property<Guid>("InterestId");
-
-                    b.Property<Guid?>("InterestId1");
-
-                    b.HasKey("UserId", "InterestId");
-
-                    b.HasIndex("InterestId");
-
-                    b.HasIndex("InterestId1");
-
-                    b.ToTable("UserInterest");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -352,18 +337,6 @@ namespace Persistence.Migrations
                         .WithMany("PostInterests")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Core.Domain.UserInterest", b =>
-                {
-                    b.HasOne("Core.Domain.User", "User")
-                        .WithMany("UserInterest")
-                        .HasForeignKey("InterestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Core.Domain.Interest", "Interest")
-                        .WithMany()
-                        .HasForeignKey("InterestId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
