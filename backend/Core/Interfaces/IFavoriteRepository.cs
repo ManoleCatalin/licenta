@@ -2,7 +2,7 @@
 
 namespace Core.Interfaces
 {
-    public interface IPostRepository : IRepository<Post>
+    public interface IFavoriteRepository : IRepository<Favorite>
     {
     }
 }

@@ -14,7 +14,7 @@ namespace Core.Configuration
             builder
                 .HasOne(pt => pt.User)
                 .WithMany(p => p.UserInterest)
-                .HasForeignKey(pt => pt.InterestId);
+                .HasForeignKey(pt => pt.UserId);
         }
     }
 }

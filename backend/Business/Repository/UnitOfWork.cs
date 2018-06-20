@@ -21,6 +21,7 @@ namespace Business.Repository
             Interests = new InterestRepository(_context);
             PostInterests = new PostInterestRepository(_context);
             Likes = new LikeRepository(_context);
+            Favorites = new FavoriteRepository(_context);
             UserInterests = new Repository<UserInterest>(_context);
         }
 
@@ -29,6 +30,7 @@ namespace Business.Repository
         public IInterestRepository Interests { get; private set; }
         public IPostInterestRepository PostInterests { get; private set; }
         public ILikeRepository Likes { get; private set; }
+        public IFavoriteRepository Favorites { get; private set; }
         public IRepository<UserInterest> UserInterests { get; }
 
         public int Complete()

@@ -13,6 +13,7 @@ namespace Core.Interfaces
         IPostInterestRepository PostInterests { get; }
         IRepository<UserInterest> UserInterests { get; }
         ILikeRepository Likes { get; }
+        IFavoriteRepository Favorites { get; }
 
         IEnumerable<Post> GetPostsForUser(Guid userId, int page = 1, int pageSize = 1, Ordering<Post> ordering = null);
         int Complete();

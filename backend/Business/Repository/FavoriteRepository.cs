@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Repository
 {
-    public class PostRepository : Repository<Post>, IPostRepository
+    public class FavoriteRepository : Repository<Favorite>, IFavoriteRepository
     {
-        public PostRepository(DbContext context) : base(context)
+        public FavoriteRepository(DbContext context) : base(context)
         {
         }
     }

@@ -6,6 +6,9 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Core.Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Seeder
 {
@@ -26,11 +29,37 @@ namespace Seeder
             var serviceBuilder = new DbContextOptionsBuilder<DbService>();
             serviceBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
+            var services = new ServiceCollection();
+
+            services.AddDbContext<DbService>(
+            options =>
+            {
+                options.UseSqlServer("Data Source=DESKTOP-LHEDB6C\\SQLEXPRESS;Initial Catalog=Dist;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            });
+
+            // Authentification
+            services.AddIdentity<User, IdentityRole<Guid>>(opt =>
+            {
+                // Configure identity options
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredLength = 6;
+                opt.User.RequireUniqueEmail = true;
+            })
+                .AddEntityFrameworkStores<DbService>()
+                .AddDefaultTokenProviders();
+
+            // Build the IoC from the service collection
+            var provider = services.BuildServiceProvider();
+
+            var userService = provider.GetService<UserManager<User>>();
 
             using (var service = new DbService(serviceBuilder.Options))
             {
                 IUnitOfWork unitOfWork = new UnitOfWork(service);
-                var seeder = new DatabaseSeeder(unitOfWork);
+                var seeder = new DatabaseSeeder(unitOfWork, service, userService);
                 seeder.Seed();
                 Console.WriteLine("interests = {0}", unitOfWork.Interests.Count());
             }

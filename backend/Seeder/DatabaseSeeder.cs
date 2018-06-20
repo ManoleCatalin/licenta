@@ -1,7 +1,9 @@
 ﻿
 using Core.Domain;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using Persistence;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,21 +22,29 @@ class InputPosts
     public List<InputPost> Posts { get; set; }
 }
 
-
 namespace Seeder
 {
     public class DatabaseSeeder
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly DbService _dbService;
+        private readonly UserManager<User> _userManager;
 
         public DatabaseSeeder(
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            DbService dbService,
+            UserManager<User> userManager)
         {
             this._unitOfWork = unitOfWork;
+            this._dbService = dbService;
+            this._userManager = userManager;
         }
 
-        public void Seed()
-        {        
+        public  void Seed()
+        {
+            _dbService.Database.EnsureCreated();
+
+
             if (!_unitOfWork.Interests.Get().Any())
             {
                 InsertInterests();
@@ -56,9 +66,8 @@ namespace Seeder
             var interests = _unitOfWork.Interests.Get(1, 300);
             var userInterests = new List<UserInterest>();
 
-            _unitOfWork.Users.Add(new User { FirstName = "test", LastName = "test", Email = "test@test.com", UserName = "test" });
-            _unitOfWork.Users.Add(new User { FirstName = "other", LastName = "other", Email = "other@other.com", UserName = "other" });
-            _unitOfWork.Complete();
+            _userManager.CreateAsync(new User { FirstName = "test", LastName = "test", Email = "test@test.com", UserName = "test" }, "password").Wait();
+            _userManager.CreateAsync(new User { FirstName = "other", LastName = "other", Email = "other@other.com", UserName = "other" }, "password").Wait();
 
             var users = _unitOfWork.Users.Get(1, 2).ToList();
 
@@ -89,8 +98,6 @@ namespace Seeder
             var secondUserId = _unitOfWork.Users.Get(2, 1).First().Id;
 
             var i = 0;
-
-            
 
             foreach (var post in inputPosts.Posts)
             {

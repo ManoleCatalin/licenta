@@ -3,18 +3,17 @@ using Core.Domain;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using WebApi.Models.Like;
+using WebApi.Models.Favorite;
 
 namespace WebApi.Controllers
 {
-    //[Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
-    public class LikesController : ControllerBase
+    public class FavoritesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public LikesController(IUnitOfWork unitOfWork, IMapper mapper)
+        public FavoritesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -22,10 +21,10 @@ namespace WebApi.Controllers
 
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateLikeModel like)
+        public IActionResult Create([FromBody] CreateFavoriteModel favorite)
         {
-            var created = new Like { Id = Guid.NewGuid(), CreatedAt = DateTime.Now, PostId = like.PostId, UserId = like.UserId};
-            _unitOfWork.Likes.Add(created);
+            var created = new Favorite { Id = Guid.NewGuid(), CreatedAt = DateTime.Now, PostId = favorite.PostId, UserId = favorite.UserId };
+            _unitOfWork.Favorites.Add(created);
             _unitOfWork.Complete();
             return new ObjectResult(created) { StatusCode = 201 };
         }
@@ -34,13 +33,13 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var likeToDelete = _unitOfWork.Likes.Get(id);
-            if (likeToDelete == null)
+            var favToDelete = _unitOfWork.Favorites.Get(id);
+            if (favToDelete == null)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.Likes.Remove(likeToDelete);
+            _unitOfWork.Favorites.Remove(favToDelete);
             _unitOfWork.Complete();
             return NoContent();
         }

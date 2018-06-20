@@ -8,7 +8,7 @@ namespace Core.Configuration
     {
         public void Configure(EntityTypeBuilder<Like> builder)
         {
-            builder.HasKey(u => u.Id);
+            builder.HasKey(t => t.Id);
             builder.Property(u => u.CreatedAt).IsRequired();
 
             builder
