@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ReadPostModel>> Get(Guid userId, int? pageIndex, int? pageSize, string orderBy)
+        public ActionResult<List<ReadPostModel>> Get(Guid userId, bool selfPosts, int? pageIndex, int? pageSize, string orderBy)
         {
             if (pageIndex == null || pageSize == null)
             {
@@ -43,17 +43,21 @@ namespace WebApi.Controllers
                 {
                     ordering = Ordering<Post>.CreateDesc(p => p.CreatedAt);
                 }
-                else
-                {
-                    return UnprocessableEntity();
-                }
             }
 
-            var posts = _unitOfWork.GetPostsForUser(userId, (int)pageIndex, (int)pageSize, ordering).ToList();
+            var posts = _unitOfWork.GetPostsForUser(userId, selfPosts, (int)pageIndex, (int)pageSize, ordering).ToList();
+
+            if (orderBy!= null && orderBy.Equals("favorite"))
+            {
+                posts = posts.Where(p => null != _unitOfWork.Favorites.GetFavoriteIdOfPostForUser(p.Id, userId)).ToList();
+            }
+
             var readPosts = _mapper.Map<List<ReadPostModel>>(posts);
             for (int i = 0; i < readPosts.Count; i++)
             {
                 readPosts[i].Interests = _mapper.Map<List<ReadInterestModel>>(posts[i].PostInterests);
+                readPosts[i].LikeId = _unitOfWork.Likes.GetLikeIdOfPostForUser(posts[i].Id, userId);
+                readPosts[i].FavoriteId = _unitOfWork.Favorites.GetFavoriteIdOfPostForUser(posts[i].Id, userId);
             }
 
             return Ok(readPosts);
@@ -96,6 +100,40 @@ namespace WebApi.Controllers
             return new ObjectResult(post) { StatusCode = 201 };
         }
 
+        [HttpPut]
+        public ActionResult<Post> Edit([FromBody] EditPostModel post)
+        {
+            var existingPost = _unitOfWork.Posts.Get(post.Id);
+            if (null == existingPost)
+            {
+                return BadRequest();
+            }
+
+            existingPost.Description = post.Description;
+            existingPost.SourceUrl = post.SourceUrl;
+            existingPost.Title = post.Title;
+
+            _unitOfWork.PostInterests.RemoveRange(existingPost.PostInterests);
+            _unitOfWork.Complete();
+
+            existingPost.PostInterests = new List<PostInterest>();
+
+            foreach (var interestGuid in post.Interests)
+            {
+                var interestById = _unitOfWork.Interests.Get(interestGuid);
+                if (interestById == null)
+                {
+                    return BadRequest();
+                }
+
+                existingPost.PostInterests.Add(new PostInterest { Interest = interestById, Post = existingPost });
+            }
+
+            _unitOfWork.PostInterests.AddRange(existingPost.PostInterests);
+            _unitOfWork.Complete();
+
+            return new ObjectResult(existingPost) { StatusCode = 201 };
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)

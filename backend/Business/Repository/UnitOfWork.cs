@@ -43,7 +43,7 @@ namespace Business.Repository
             _context.Dispose();
         }
 
-        public IEnumerable<Post> GetPostsForUser(Guid userId, int pageIndex = 1, int pageSize = 1, Ordering<Post> ordering = null)
+        public IEnumerable<Post> GetPostsForUser(Guid userId, bool selfPosts, int pageIndex = 1, int pageSize = 1, Ordering<Post> ordering = null)
         {
             var user = Users.Get(userId);
             if (user == null)
@@ -55,16 +55,25 @@ namespace Business.Repository
 
             return Posts.Get(pageIndex, pageSize, ordering)
                 .Where(p => {
-                    foreach (var postInterest in p.PostInterests)
+
+                    if (selfPosts)
                     {
-                        foreach (var userInterest in userInterests)
+                        if (p.UserId == userId) return true;
+                    }
+                    else
+                    {
+                        foreach (var postInterest in p.PostInterests)
                         {
-                            if (userInterest.InterestId == postInterest.InterestId)
+                            foreach (var userInterest in userInterests)
                             {
-                                return true;
+                                if (userInterest.InterestId == postInterest.InterestId)
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }
+
                     return false;
                 })
             .Skip((pageIndex - 1) * pageSize)
