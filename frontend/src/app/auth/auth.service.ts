@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { RequestOptions } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,19 +10,30 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   token: string;
-  email: string;
-  password: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
-  signupUser(email: string, password: string) {
-    this.email = email;
-    this.password = password;
+  signupUser(username: string, email: string, password: string) {
+
+   const firstName = '-';
+   const lastName = '-';
+
+   return this.http.post(environment.backendUrl + '/Auth/register', {
+    username: username,
+    email: email,
+    password: password,
+    firstName: firstName,
+    lastName: lastName
+  });
   }
 
-  signinUser(email: string, password: string) {
+  signinUser(username: string, password: string) {
       this.token = 'dummy-string';
-      this.router.navigate(['/']);
+
+      return this.http.post(environment.backendUrl + '/Auth/login', {
+        username: username,
+        password: password,
+      });
   }
 
   logout() {

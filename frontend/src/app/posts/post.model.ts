@@ -1,3 +1,5 @@
+import { Interest } from '../interests/interest.model';
+
 export class Post {
   constructor(
     public title: string,
@@ -9,6 +11,13 @@ export class Post {
     public liked: boolean,
     public favorite: boolean,
     public authorName: string,
-    public authorId: string
+    public authorId: string,
+//    public interests: Interest[]
+  ) {}
+}
+
+export class CreatePostModel {
+  constructor(
+    public userId: string, public title: string, public sourceUrl: string, public description: string, public interests: string[]
   ) {}
 }

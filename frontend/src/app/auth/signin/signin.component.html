@@ -1,3 +1,22 @@
-<p>
-  signin works!
-</p>
+<h1 class="text-primary text-center">
+    Dist</h1>
+  <h5 class="text-center">Login</h5>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-sm-10 col-md-6 ">
+        <form (ngSubmit)="onSignIn(f)" #f="ngForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" ngModel class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" ngModel class="form-control">
+          </div>  
+          <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Login</button>
+        </form>
+        <button class="btn btn-link" type="submit">Got an account already</button>
+        <h4 *ngIf="error" class="text-danger">Input data is invalid!</h4>
+      </div>
+    </div>
+  </div>

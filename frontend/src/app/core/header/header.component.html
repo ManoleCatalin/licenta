@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top">
   <a class="navbar-brand">Dist</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarSupportedContent">
@@ -8,47 +8,38 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="" >Home
-         
+        <a class="nav-link" routerLink="">Home
+
         </a>
       </li>
       <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="postsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false" ngbDropdownToggle>
+        <a class="nav-link dropdown-toggle" id="postsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          ngbDropdownToggle>
           Posts
         </a>
         <div class="dropdown-menu" aria-labelledby="postsDropdown" ngbDropdownMenu>
-            
+
           <a class="dropdown-item" routerLink="/posts">Popular</a>
           <a class="dropdown-item" routerLink="/not-found">Favorite</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" routerLink="/not-found">Latest</a>
         </div>
       </li>
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="peopleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false" ngbDropdownToggle>
-          People
-        </a>
-        <div class="dropdown-menu" aria-labelledby="peopleDropdown" ngbDropdownMenu>
-          <a class="dropdown-item" routerLink="/not-found">Subscriptions</a>
-          <a class="dropdown-item" routerLink="/not-found">Followers</a>
-        </div>
-      </li>
       <li class="nav-item">
         <a class="nav-link" (click)="openInterestsModal()">
           My Interests</a>
       </li>
-
     </ul>
-    <span class="navbar-text">
-      Hello there, funkyUser
-    </span>
-
-    <span class="navbar-text">
-      &nbsp;&nbsp;&nbsp;
-    </span>
     <ul class="navbar-nav">
+      <li class="nav-item">
+        <span class="navbar-text">
+          Logged in as funkyUser
+        </span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link navbar-text create-link" (click)="openCreatePostModal()"> Create a post!</a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" routerLink="/not-found">
           Logout

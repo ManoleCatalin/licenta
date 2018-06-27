@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { DisplayInterestsComponent } from '../../interests/display-interests/display-interests.component';
+import { CreatePostComponent } from '../../posts/create-post/create-post.component';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,10 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  openCreatePostModal() {
+    const modalRef = this.modalService.open(CreatePostComponent);
   }
 
   ngOnInit() {}

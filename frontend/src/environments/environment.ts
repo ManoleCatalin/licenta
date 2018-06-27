@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  custopGoogleSearchApiKey: 'AIzaSyBVooW5LsoW0xb8IgaPcbBWDJnAbMslGjI'
+  custopGoogleSearchApiKey: 'AIzaSyBVooW5LsoW0xb8IgaPcbBWDJnAbMslGjI',
+  backendUrl: 'https://localhost:44372/api/'
 };
 
 /*

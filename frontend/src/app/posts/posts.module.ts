@@ -11,10 +11,12 @@ import { PostCardComponent } from './post-card/post-card.component';
 import { InterestsModule } from '../interests/interests.module';
 import { CommentsModule } from '../comments/comments.module';
 import { CoreModule } from '../core/core.module';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 @NgModule({
   declarations: [PostsComponent, PreviewPostComponent,
-    PostCardComponent
+    PostCardComponent,
+    CreatePostComponent
 ],
   imports: [
     CommentsModule,
@@ -27,6 +29,6 @@ import { CoreModule } from '../core/core.module';
     NgbModule
   ],
   exports: [InfiniteScrollModule],
-  entryComponents: [PreviewPostComponent]
+  entryComponents: [PreviewPostComponent, CreatePostComponent]
 })
 export class PostsModule {}

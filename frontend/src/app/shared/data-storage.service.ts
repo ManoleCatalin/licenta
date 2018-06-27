@@ -1,5 +1,6 @@
+
 import { Injectable } from '@angular/core';
-import { Post } from '../posts/post.model';
+import { Post, CreatePostModel } from '../posts/post.model';
 import { Interest } from '../interests/interest.model';
 import { InterestsModule } from '../interests/interests.module';
 import { HttpClient } from '@angular/common/http';
@@ -43,7 +44,7 @@ we looked at how to centralize our AutoMapper mapping definitions in a config cl
       'The awsome cpp list',
       'https://github.com/fffaraz/awesome-cpp',
       `awesome-cpp - A curated list of awesome C++ (or C) frameworks, libraries, resources,
-      and shiny things. Inspired by awesome-... stuff.`,
+      and shiny things. Inspired by awesome-... stuff.  `,
       'https://avatars2.githubusercontent.com/u/895678?s=400&v=4',
       '',
       1392,
@@ -128,5 +129,9 @@ we looked at how to centralize our AutoMapper mapping definitions in a config cl
     this.activeInterests = this.activeInterests.filter((interest) => {
       return interest.id !== id;
     });
+  }
+
+  createPost(createPost: CreatePostModel) {
+    return this.httpClient.post(environment.backendUrl + 'Posts',  createPost);
   }
 }
