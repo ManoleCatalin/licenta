@@ -8,6 +8,9 @@ namespace WebApi.Validators.Post
         public CreatePostValidator()
         {
             RuleFor(x => x.Interests).NotEmpty();
+            RuleFor(x => x.SourceUrl).NotEmpty();
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
         }
     }
 }
