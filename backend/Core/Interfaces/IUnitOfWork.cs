@@ -15,7 +15,7 @@ namespace Core.Interfaces
         ILikeRepository Likes { get; }
         IFavoriteRepository Favorites { get; }
 
-        IEnumerable<Post> GetPostsForUser(Guid userId, bool selfPosts, int page = 1, int pageSize = 1, Ordering<Post> ordering = null);
+        IEnumerable<Post> GetPostsForUser(Guid userId, bool selfPosts, int page = 1, int pageSize = 1, Ordering<Post> ordering = null, Guid? interestId = null);
         int Complete();
     }
 }
