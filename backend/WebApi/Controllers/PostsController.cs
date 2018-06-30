@@ -70,7 +70,7 @@ namespace WebApi.Controllers
 
             if (orderBy!= null && orderBy.Equals("favorite"))
             {
-                posts = posts.Where(p => null != _unitOfWork.Favorites.GetFavoriteIdOfPostForUser(p.Id, userId)).ToList();
+                posts = _unitOfWork.Posts.GetFavoritePosts(userId, (int)pageIndex, (int)pageSize).ToList();
             }
 
             var readPosts = _mapper.Map<List<ReadPostModel>>(posts);
@@ -79,6 +79,7 @@ namespace WebApi.Controllers
                 readPosts[i].Interests = _mapper.Map<List<ReadInterestModel>>(posts[i].PostInterests);
                 readPosts[i].LikeId = _unitOfWork.Likes.GetLikeIdOfPostForUser(posts[i].Id, userId);
                 readPosts[i].FavoriteId = _unitOfWork.Favorites.GetFavoriteIdOfPostForUser(posts[i].Id, userId);
+                readPosts[i].LikesCount = _unitOfWork.Posts.GetLikesCountOfPost(posts[i].Id);
             }
 
             return Ok(readPosts);

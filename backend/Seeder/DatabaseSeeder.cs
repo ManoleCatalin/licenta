@@ -3,11 +3,13 @@ using Core.Domain;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Persistence;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 
 class InputPost
 {
@@ -45,10 +47,10 @@ namespace Seeder
             _dbService.Database.EnsureCreated();
 
 
-            if (!_unitOfWork.Interests.Get().Any())
-            {
-                InsertInterests();
-            }
+            //if (!_unitOfWork.Interests.Get().Any())
+            //{
+            InsertInterests();
+            //}
 
             if (!_unitOfWork.Users.Get().Any())
             {
@@ -98,14 +100,21 @@ namespace Seeder
             var secondUserId = _unitOfWork.Users.Get(2, 1).First().Id;
 
             var i = 0;
+            Random rnd = new Random();  
 
             foreach (var post in inputPosts.Posts)
             {
+                var day = rnd.Next(1, 13);
+                var hour = rnd.Next(1, 23);
+                var minute = rnd.Next(1, 59);
+                var second = rnd.Next(1, 59);
+
                 var interest = _unitOfWork.Interests.Find(x => x.Name.Equals(post.Interests[0])).First();
 
                 _unitOfWork.Posts.Add(new Post {
                     Description = post.Description,
                     SourceUrl = post.SourceUrl,
+                    CreatedAt = DateTime.Now.Add(new TimeSpan(hour, minute, second)),
                     Title = post.Title,
                     UserId = (i % 2 == 0) ? firstUserId : secondUserId,
                     PostInterests = new List<PostInterest> { new PostInterest { InterestId = interest.Id } }
@@ -129,13 +138,44 @@ namespace Seeder
 
 
             System.IO.StreamReader file = new System.IO.StreamReader(basePath);
-
+            var customGoogleSearchApiKey = "AIzaSyDHyKY6yim_EskOVvh0dqguDQaH0wikuPI";//"AIzaSyBw0fuuPdWa1OAOTydOg02-6ttkxALhPsU"; //"AIzaSyBVooW5LsoW0xb8IgaPcbBWDJnAbMslGjI";
             var interest = new Interest() { ThumbnailImgUrl = "" };
 
             while ((line = file.ReadLine()) != null)
             {
+                if(_dbService.Interests.Where(x => x.Name == line).Count() != 0) {
+                    Console.WriteLine("skiping interest " + line);
+                    continue;
+                }
+
                 interest.Id = Guid.NewGuid();
                 interest.Name = line;
+
+                var getImgSearchGoogle =
+                    "https://www.googleapis.com/customsearch/v1?key=" +
+                    customGoogleSearchApiKey +
+                    "&cx=010971677492822427252:8_y1rtvjy0u&num=1&start=1&imgSize=medium&searchType=image&q=" +
+                     interest.Name;
+
+                WebRequest request = WebRequest.Create(getImgSearchGoogle);
+                WebResponse response = request.GetResponse();
+                Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+                 
+                Stream dataStream = response.GetResponseStream();
+                 
+                StreamReader reader = new StreamReader(dataStream);
+
+                string responseFromServer = reader.ReadToEnd();
+
+                JObject root = JObject.Parse(responseFromServer);
+                JArray items = (JArray)root["items"];
+                interest.ThumbnailImgUrl = (string)items[0]["link"];
+
+                Console.WriteLine(interest.ThumbnailImgUrl);
+                
+                reader.Close();
+                response.Close();
+
                 _unitOfWork.Interests.Add(interest);
                 insertedCount++;
 

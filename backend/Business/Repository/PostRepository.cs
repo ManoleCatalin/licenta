@@ -14,6 +14,11 @@ namespace Business.Repository
         {
         }
 
+        public int GetLikesCountOfPost(Guid postId)
+        {
+           return _entities.First(x => x.Id == postId).Likes.Count();
+        }
+
         public IEnumerable<Post> GetPostsForInterest(Guid interestId, int pageIndex = 1, int pageSize = 1)
         {
             return _entities.Where(x => 1 == x.PostInterests.Count(y => y.InterestId == interestId))
@@ -29,43 +34,59 @@ namespace Business.Repository
                 return null;
             }
 
-            var userInterests = user.UserInterest;
+           // var userInterests = user.UserInterest;
 
 
             var entities = _entities.AsQueryable();
+
+            //return entities.Where(p =>
+            //{
+            //    if (selfPosts)
+            //    {
+            //        if (p.UserId == userId) return true;
+            //    }
+            //    else
+            //    {
+            //        foreach (var postInterest in p.PostInterests)
+            //        {
+            //            foreach (var userInterest in userInterests)
+            //            {
+            //                if (userInterest.InterestId == postInterest.InterestId)
+            //                {
+            //                    return true;
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    return false;
+            //})
+            if(selfPosts)
+            {
+                entities = entities.Where(p => p.UserId == userId);
+            }
+            else
+            {
+                var userInterests = Context.Set<UserInterest>().Where(u => u.UserId == userId);
+                entities = entities.Where(p => 0 != p.PostInterests.Count(x => 0 != userInterests.Count(u => u.InterestId == x.InterestId)));
+            }
+
 
             if (ordering != null)
             {
                 entities = ordering.Apply(entities);
             }
 
-            return (entities.AsEnumerable()).Where(p =>
-            {
-
-                if (selfPosts)
-                {
-                    if (p.UserId == userId) return true;
-                }
-                else
-                {
-                    foreach (var postInterest in p.PostInterests)
-                    {
-                        foreach (var userInterest in userInterests)
-                        {
-                            if (userInterest.InterestId == postInterest.InterestId)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                return false;
-            })
+            return entities
             .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize).ToList();
+            .Take(pageSize);
         }
 
-        
+        public IEnumerable<Post> GetFavoritePosts(Guid userId, int pageIndex = 1, int pageSize = 1)
+        {
+            return _entities.Where(p => 0 != p.Favorites.Count(f => userId == f.UserId))
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize);
+        }
     }
 }

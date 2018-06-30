@@ -10,7 +10,10 @@
   <h4>Preview webpage</h4>
   <img class="border border-primary" src="{{parent.post.previewImgUrl}}" alt="{{parent.post.previewImgUrl}}">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
+      <h6 class="text-secondary"> {{ parent.post.createdAt | date : "short" }} </h6>
+    </div>  
+    <div class="col-md-3 ml-auto">
       <button class="btn btn-link" title="Like this post!" [disabled]="parent.post.liked" (click)="parent.markLiked()">
         <p class="text-primary">
           {{parent.post.likesCount}}
@@ -18,19 +21,16 @@
         </p>
       </button>
       <button class="btn btn-link" title="Mark this post as favorite!" [disabled]="parent.post.favorite" (click)="parent.markFavorite()">
-        <p class="text-warning">
+        <p class="text-primary">
           <i class="fa fa-star"></i>
         </p>
       </button>
       <a href="{{parent.post.url}}" target="_blank" class="btn btn-link" title="Explore">
-        <p class="text-warning">
+        <p class="text-primary">
           <i class="fa fa-link text-danger"></i>
         </p>
       </a>
     </div>
-    <div class="col-md-4 ml-auto">
-      <h6 class="text-secondary">  {{ parent.post.createdAt | date :  "short" }} </h6>
-  </div>
   </div>
 </div>
 <div class="modal-footer">

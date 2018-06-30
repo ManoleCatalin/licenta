@@ -14,17 +14,30 @@
       <div class="row">
         <div class="col-md-2">
           <div class="btn-group">
-            <button class="btn btn-link" title="Like this post!" [disabled]="post.liked" (click)="markLiked()">
-              <p class="text-primary">
-                {{post.likesCount}}
+            <p class="text-primary">
+              {{post.likesCount}}
+
+            </p>
+            <button class="btn btn-link" title="Like this post!" *ngIf="!post.likeId" (click)="markLiked()">
+              <p class="text-secondary">
                 <i class="fa fa-thumbs-up"> </i>
               </p>
             </button>
-            <button class="btn btn-link" title="Mark this post as favorite!" [disabled]="post.favorite" (click)="markFavorite()">
+            <button class="btn btn-link" title="Unlike this post!" *ngIf="post.likeId" (click)="unmarkLiked()">
+              <p class="text-primary">
+                <i class="fa fa-thumbs-up"> </i>
+              </p>
+            </button>
+            <button class="btn btn-link" title="Mark this post as favorite!" *ngIf="!post.favoriteId" (click)="markFavorite()">
+              <p class="text-secondary">
+                <i class="fa fa-star"></i>
+              </p>
+            </button>
+            <button class="btn btn-link" title="Unmark this post as favorite!" *ngIf="post.favoriteId" (click)="unmarkFavorite()">
               <p class="text-primary">
                 <i class="fa fa-star"></i>
               </p>
-            </button>           
+            </button>
           </div>
         </div>
         <div class="col-md-6 col-lg-4 ml-auto">
@@ -42,11 +55,11 @@
         </div>
       </div>
       <div class="row">
-          <div class="col-md-4">
-              <span class="badge badge-secondary" *ngFor="let interest of post.interests">{{interest.name}}</span>
-          </div>
+        <div class="col-md-4">
+          <span class="badge badge-secondary" *ngFor="let interest of post.interests">{{interest.name}}</span>
+        </div>
         <div class="col-md-4 ml-auto">
-            <h6 class="text-secondary">  {{ post.createdAt | date :  "short" }} </h6>
+          <h6 class="text-secondary"> {{ post.createdAt | date : "short" }} </h6>
         </div>
       </div>
     </div>

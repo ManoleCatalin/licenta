@@ -14,5 +14,6 @@ namespace WebApi.Models.Post
         public ICollection<ReadInterestModel> Interests { get; set; }
         public Guid? LikeId { get; set; }
         public Guid? FavoriteId { get; set; }
+        public int LikesCount { get; set; }
     }
 }

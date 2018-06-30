@@ -3,12 +3,12 @@
 }
 
 .nav-item {
-    text-shadow: grey 0.1em 0.1em 0.2em;
+    /* text-shadow: grey 0.1em 0.1em 0.2em; */
     color: bisque !important;
 }
 
 .nav-link {
-    text-shadow: black 0.1em 0.1em 0.2em;
+    /* text-shadow: black 0.1em 0.1em 0.2em; */
     color: bisque !important;
 }
 
@@ -17,5 +17,5 @@
 }
 
 .create-link { 
-    text-shadow: black 0.1em 0.1em 0.2em;
+    /* text-shadow: black 0.1em 0.1em 0.2em; */
 }

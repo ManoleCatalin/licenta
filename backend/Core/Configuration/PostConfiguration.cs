@@ -9,7 +9,7 @@ namespace Core.Configuration
         public void Configure(EntityTypeBuilder<Post> builder)
         {
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.SourceUrl).HasMaxLength(2048).IsRequired();
+            builder.Property(p => p.SourceUrl).HasMaxLength(500).IsRequired();
             builder.Property(p => p.Title).HasMaxLength(256).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(500).IsRequired();
             builder.Property(p => p.CreatedAt).IsRequired();

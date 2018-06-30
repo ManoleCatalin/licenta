@@ -239,4 +239,40 @@ export class DataStorageService {
 
     return this.httpClient.post(environment.backendUrl + 'Posts', createPost, { headers: headers });
   }
+
+  likePost(postId: string, userId: string) {
+    const headers = {
+      Authorization: `Bearer ${this.authService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+
+    return this.httpClient.post(environment.backendUrl + 'Likes', {'postId': postId, 'userId': userId}, { headers: headers });
+  }
+
+  unlikePost(likeId: string) {
+    const headers = {
+      Authorization: `Bearer ${this.authService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+
+    return this.httpClient.delete(environment.backendUrl + 'Likes/' + likeId, { headers: headers });
+  }
+
+  favoritePost(postId: string, userId: string) {
+    const headers = {
+      Authorization: `Bearer ${this.authService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+
+    return this.httpClient.post(environment.backendUrl + 'Favorites', {'postId': postId, 'userId': userId}, { headers: headers });
+  }
+
+  unfavoritePost(favoriteId: string) {
+    const headers = {
+      Authorization: `Bearer ${this.authService.getToken()}`,
+      'Content-Type': 'application/json'
+    };
+
+    return this.httpClient.delete(environment.backendUrl + 'Favorites/' + favoriteId, { headers: headers });
+  }
 }

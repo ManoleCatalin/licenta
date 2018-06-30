@@ -58,9 +58,9 @@ export class PostsComponent implements OnInit {
           p['description'],
           '',
           '',
-          23,
-          !p['likeId'],
-          !p['favoriteId'],
+          p['likesCount'],
+          p['likeId'],
+          p['favoriteId'],
           'noName',
           p['createdAt'],
           p[`userId`],
@@ -68,6 +68,13 @@ export class PostsComponent implements OnInit {
         )
       );
     }
+
+    newPosts.forEach(post => {
+        const url = post.url;
+        const auth = '1545-33ee2ca36dd86004edebafe530d2b8e3';
+        const imgUrl = '//image.thum.io/get/auth/' + auth + '/' + url;
+        post.previewImgUrl = imgUrl;
+     });
 
     this.posts = this.posts.concat(newPosts);
     this.pagesLoaded = this.pagesLoaded + 1;
