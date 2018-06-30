@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-8">
   <div class="card bg-light">
     <div class="container">
       <div class="row">
@@ -21,11 +21,10 @@
               </p>
             </button>
             <button class="btn btn-link" title="Mark this post as favorite!" [disabled]="post.favorite" (click)="markFavorite()">
-              <p class="text-warning">
+              <p class="text-primary">
                 <i class="fa fa-star"></i>
               </p>
-            </button>
-            
+            </button>           
           </div>
         </div>
         <div class="col-md-6 col-lg-4 ml-auto">
@@ -34,12 +33,20 @@
               <img class="rounded img-fluid text-center" src="{{post.previewImgUrl}}" alt="{{post.title}}">
             </ng-template>
             <button type="button" class="btn btn-link" title="Preview" (click)="displayPreviewModal()">
-              <i class="fa fa-eye text-success "></i>
+              <i class="fa fa-eye text-primary "></i>
             </button>
             <a href="{{post.url}}" target="_blank" class="btn btn-link" title="Explore">
-              <i class="fa fa-link text-danger"></i>
+              <i class="fa fa-link text-primary"></i>
             </a>
           </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-4">
+              <span class="badge badge-secondary" *ngFor="let interest of post.interests">{{interest.name}}</span>
+          </div>
+        <div class="col-md-4 ml-auto">
+            <h6 class="text-secondary">  {{ post.createdAt | date :  "short" }} </h6>
         </div>
       </div>
     </div>

@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { RequestOptions } from '@angular/http';
+import { JwtHelper } from 'angular2-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  token: string;
-
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private http: HttpClient, private helper: JwtHelper) {}
 
   signupUser(username: string, email: string, password: string) {
 
@@ -28,7 +25,6 @@ export class AuthService {
   }
 
   signinUser(username: string, password: string) {
-      this.token = 'dummy-string';
 
       return this.http.post(environment.backendUrl + '/Auth/login', {
         username: username,
@@ -36,16 +32,26 @@ export class AuthService {
       });
   }
 
+  saveToken(token: string) {
+    localStorage.setItem('auth-token', token);
+  }
+
   logout() {
-    this.token = null;
+    localStorage.removeItem('auth-token');
   }
 
   getToken() {
-    return this.token;
+    return localStorage.getItem('auth-token');
   }
 
-  isAuthenticated() {
-    return this.token != null;
+
+  getCurrentUserId() {
+    const token = this.getToken();
+    if (token === null) {
+      return null;
+    }
+
+    return this.helper.decodeToken(token).id;
   }
 
 }

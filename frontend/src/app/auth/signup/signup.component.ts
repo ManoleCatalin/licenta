@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -30,7 +31,7 @@ export class SignupComponent implements OnInit {
       return;
     }
     this.authService.signupUser(username, email, password).subscribe(result => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/signin']);
     }, error => {
       this.error = true;
     });

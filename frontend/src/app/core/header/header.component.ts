@@ -3,6 +3,8 @@ import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { DisplayInterestsComponent } from '../../interests/display-interests/display-interests.component';
 import { CreatePostComponent } from '../../posts/create-post/create-post.component';
+import { AuthService } from '../../auth/auth.service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,7 @@ import { CreatePostComponent } from '../../posts/create-post/create-post.compone
 export class HeaderComponent implements OnInit {
   public isCollapsed = true;
 
-  constructor(config: NgbDropdownConfig, private modalService: NgbModal) {
+  constructor(config: NgbDropdownConfig, private modalService: NgbModal, private authService: AuthService, private router: Router) {
     config.placement = 'bottom-right';
     config.autoClose = true;
   }
@@ -29,6 +31,11 @@ export class HeaderComponent implements OnInit {
 
   openCreatePostModal() {
     const modalRef = this.modalService.open(CreatePostComponent);
+  }
+
+  loguout() {
+    this.authService.logout();
+    this.router.navigate(['']);
   }
 
   ngOnInit() {}

@@ -25,13 +25,13 @@
     </div>
     <div class="row  my-1">
       <div class="col-md-10">
-        <h5 *ngIf="imgThumbnailSelected !== ''"> {{displayInterestName}} </h5>
+        <h5 *ngIf="displayInterestName !== ''"> {{displayInterestName}} </h5>
       </div>
     </div>
     <div class="row ">
       <div class="btn-group">
-        <button class="btn btn-light" *ngIf="imgThumbnailSelected !== '' ">View posts</button>
-        <button class="btn btn-primary" *ngIf="imgThumbnailSelected !== '' " (click)="addInterest()">Add interest</button>
+        <button class="btn btn-light" *ngIf="searchedInterest?.name" (click)="displayPostsOfInterest(searchedInterest.id)">View posts</button>
+        <button class="btn btn-primary" *ngIf="searchedInterest?.name" (click)="addInterest()">Add interest</button>
       </div>
     </div>
     <div class="row">
@@ -53,8 +53,8 @@
       </div>
       <div class="col-md-4">
         <div class="btn-group">
-          <button class="btn btn-primary">View posts</button>
-          <button class="btn btn-danger">X</button>
+          <button class="btn btn-primary" (click)="displayPostsOfInterest(interest.id)">View posts</button>
+          <button class="btn btn-danger" (click)="removeInterest(interest.id)">X</button>
         </div>
       </div>
     </div>

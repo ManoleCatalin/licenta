@@ -5,6 +5,8 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { JwtHelper } from 'angular2-jwt';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     FormsModule,
-    CommonModule
-  ]
+    CommonModule,
+    RouterModule
+  ],
+  providers: [JwtHelper]
 })
 export class AuthModule {}

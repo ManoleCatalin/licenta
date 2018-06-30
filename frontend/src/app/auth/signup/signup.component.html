@@ -26,7 +26,8 @@
 
         <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign Up</button>
       </form>
-      <button class="btn btn-link" type="submit">Got an account already</button>
+      <button class="btn btn-link" routerLink="/signin">Got an account already</button>
+
       <h4 *ngIf="error" class="text-danger">Input data is invalid!</h4>
     </div>
   </div>

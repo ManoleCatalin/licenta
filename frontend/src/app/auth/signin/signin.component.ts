@@ -24,12 +24,14 @@ export class SigninComponent implements OnInit {
     const username = form.value.username;
 
     this.authService.signinUser(username, password).subscribe(result => {
-      this.router.navigate(['/login']);
+
+      this.authService.saveToken(result['auth_token']);
+
+      console.log('tk: ', result['auth_token']);
+
+      this.router.navigate(['/posts/freshness']);
     }, error => {
       this.error = true;
     });
-    this.router.navigate(['/']);
-
   }
-
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 import { Post } from './post.model';
-import { HeaderComponent } from '../core/header/header.component';
+import { Interest } from '../interests/interest.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -10,19 +11,79 @@ import { HeaderComponent } from '../core/header/header.component';
 })
 export class PostsComponent implements OnInit {
   public posts: Post[] = [];
-  private pagesLoaded = 0;
-  constructor(private dataStorage: DataStorageService) {}
+  private pagesLoaded = 1;
+  orderedBy: string = null;
+  ofInterest: string = null;
+  selfPosts = false;
+
+  constructor(private dataStorage: DataStorageService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    const initPosts = this.dataStorage.getPosts(this.pagesLoaded, 5);
-    console.log('initPosts: ' + initPosts);
-    this.posts = this.posts.concat(initPosts);
+    this.orderedBy = this.route.snapshot.data['orderedBy'];
+    this.selfPosts = this.route.snapshot.data['selfPosts'];
+
+    console.log('orderedBy: ', this.orderedBy);
+    console.log('selfPosts: ', this.selfPosts);
+
+    this.route.params.subscribe(params => {
+      this.ofInterest = params.id;
+      console.log('ofInterest: ', this.ofInterest);
+    });
+
+    this.dataStorage
+      .getPosts(this.orderedBy, this.selfPosts, this.ofInterest, this.pagesLoaded, 5)
+      .subscribe(result => {
+        this.parsePostResult(result);
+      });
+  }
+
+  parsePostResult(result: any) {
+    console.log('initPosts: ' + result);
+
+    const newPosts: Post[] = [];
+    for (let i = 0; i < result.length; i++) {
+      const interests: Interest[] = [];
+      const p = result[i];
+      for (let j = 0; j < p['interests'].length; j++) {
+        const interest = p['interests'][j];
+        interests.push(new Interest(interest['id'], interest['name'], interest['thumbnailImgUrl']));
+      }
+
+      console.log(interests);
+      newPosts.push(
+        new Post(
+          p['id'],
+          p['title'],
+          p['sourceUrl'],
+          p['description'],
+          '',
+          '',
+          23,
+          !p['likeId'],
+          !p['favoriteId'],
+          'noName',
+          p['createdAt'],
+          p[`userId`],
+          interests
+        )
+      );
+    }
+
+    this.posts = this.posts.concat(newPosts);
     this.pagesLoaded = this.pagesLoaded + 1;
-    console.log(this.posts.length);
   }
 
   onScroll() {
-    console.log('scroll works');
-    this.posts = this.posts.concat(this.dataStorage.getPosts(this.pagesLoaded++, 5));
+    this.dataStorage
+      .getPosts(this.orderedBy, this.selfPosts, this.ofInterest, this.pagesLoaded, 5)
+      .subscribe(
+        result => {
+          console.log('pagesLoaded' + this.pagesLoaded);
+          this.parsePostResult(result);
+        },
+        error => {
+          console.log('error' + error);
+        }
+      );
   }
 }

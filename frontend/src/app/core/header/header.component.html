@@ -19,10 +19,12 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="postsDropdown" ngbDropdownMenu>
 
-          <a class="dropdown-item" routerLink="/posts">Popular</a>
-          <a class="dropdown-item" routerLink="/not-found">Favorite</a>
+          <a class="dropdown-item" routerLink="/posts/popularity">Popular</a>
+          <a class="dropdown-item" routerLink="/posts/favorite">Favorite</a>
+          
+          <a class="dropdown-item" routerLink="/posts/freshness">Latest</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="/not-found">Latest</a>
+          <a class="dropdown-item" routerLink="/posts/own">Your posts</a>
         </div>
       </li>
       <li class="nav-item">
@@ -41,7 +43,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/not-found">
+        <a class="nav-link" (click)="loguout()">
           Logout
           <i class="fa fa-sign-out" aria-hidden="true" title="Logout"></i>
         </a>
