@@ -22,23 +22,18 @@ export class PostsComponent implements OnInit {
     this.orderedBy = this.route.snapshot.data['orderedBy'];
     this.selfPosts = this.route.snapshot.data['selfPosts'];
 
-    console.log('orderedBy: ', this.orderedBy);
-    console.log('selfPosts: ', this.selfPosts);
-
     this.route.params.subscribe(params => {
       this.ofInterest = params.id;
-      console.log('ofInterest: ', this.ofInterest);
     });
 
     this.dataStorage
-      .getPosts(this.orderedBy, this.selfPosts, this.ofInterest, this.pagesLoaded, 5)
+      .getPosts(this.orderedBy, this.selfPosts, this.ofInterest, this.pagesLoaded, 10)
       .subscribe(result => {
         this.parsePostResult(result);
       });
   }
 
   parsePostResult(result: any) {
-    console.log('initPosts: ' + result);
 
     const newPosts: Post[] = [];
     for (let i = 0; i < result.length; i++) {
@@ -49,7 +44,6 @@ export class PostsComponent implements OnInit {
         interests.push(new Interest(interest['id'], interest['name'], interest['thumbnailImgUrl']));
       }
 
-      console.log(interests);
       newPosts.push(
         new Post(
           p['id'],
@@ -82,14 +76,10 @@ export class PostsComponent implements OnInit {
 
   onScroll() {
     this.dataStorage
-      .getPosts(this.orderedBy, this.selfPosts, this.ofInterest, this.pagesLoaded, 5)
+      .getPosts(this.orderedBy, this.selfPosts, this.ofInterest, this.pagesLoaded, 10)
       .subscribe(
         result => {
-          console.log('pagesLoaded' + this.pagesLoaded);
           this.parsePostResult(result);
-        },
-        error => {
-          console.log('error' + error);
         }
       );
   }

@@ -28,13 +28,9 @@ export class DisplayInterestsComponent implements OnInit {
     private dataStorageService: DataStorageService,
     private router: Router,
     private httpClient: HttpClient
-  ) {
-    console.log('ctor');
-    // this.activeInterests = dataStorageService.getActiveInterests(1, 5);
-  }
+  ) {}
 
   ngOnInit() {
-    console.log('on init');
     this.dataStorageService.getActiveInterests().subscribe(result => {
       this.activeInterests = result;
     });
@@ -64,18 +60,7 @@ export class DisplayInterestsComponent implements OnInit {
 
     this.dataStorageService.getAvailableInterests(1, 400).subscribe(
       ints => {
-        console.log('ints: ', ints);
         this.interests = ints;
-        // this.interests.forEach(interest => {
-
-          //   client.get(getImgSearchGoogle + interest.name).subscribe((imgLink: any) => {
-          //   interest.thumbnailImgUrl = imgLink.items[0].link;
-          //   console.log(interest.thumbnailImgUrl);
-          // });
-       // });
-      },
-      error => {
-        console.log('error: ' + error);
       }
     );
 
@@ -89,7 +74,6 @@ export class DisplayInterestsComponent implements OnInit {
               .filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
               .map(v => v.name)
               .map(v => {
-                console.log(v);
                 return v;
               })
               .slice(0, 10);
@@ -98,30 +82,25 @@ export class DisplayInterestsComponent implements OnInit {
   }
 
   addInterest() {
-    console.log(this.searchedInterest);
-    this.dataStorageService.addActiveInterest(this.searchedInterest.id).subscribe(result => {
-      console.log('added interest successfully');
+
+      this.dataStorageService.addActiveInterest(this.searchedInterest.id).subscribe(result => {
+
       this.dataStorageService.getActiveInterests().subscribe(result2 => {
         this.activeInterests = result2;
       });
     });
-
-    console.log(this.activeInterests);
   }
 
   removeInterest(interest: string) {
     this.dataStorageService.removeActiveInterest(interest).subscribe(result => {
-      console.log('removed interest successfully');
       this.dataStorageService.getActiveInterests().subscribe(result2 => {
         this.activeInterests = result2;
       });
     });
 
-    console.log(this.activeInterests);
   }
 
   displayPostsOfInterest(interest: string) {
-    console.log('displayPostsOfInterest ' + interest);
     this.activeModal.close('done');
     this.router.navigate(['/posts', 'interest', interest]);
   }

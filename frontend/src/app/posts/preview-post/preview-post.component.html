@@ -12,22 +12,34 @@
   <div class="row">
     <div class="col-md-4">
       <h6 class="text-secondary"> {{ parent.post.createdAt | date : "short" }} </h6>
-    </div>  
-    <div class="col-md-3 ml-auto">
-      <button class="btn btn-link" title="Like this post!" [disabled]="parent.post.liked" (click)="parent.markLiked()">
-        <p class="text-primary">
+    </div>
+    <div class="col-md-5 ml-auto">
+
+      <button class="btn btn-link text-secondary" title="Like this post!" *ngIf="!parent.post.likeId" (click)="parent.markLiked()">
+        <p class="">
           {{parent.post.likesCount}}
           <i class="fa fa-thumbs-up"> </i>
         </p>
       </button>
-      <button class="btn btn-link" title="Mark this post as favorite!" [disabled]="parent.post.favorite" (click)="parent.markFavorite()">
+      <button class="btn btn-link text-primary" title="Unlike this post!" *ngIf="parent.post.likeId" (click)="parent.unmarkLiked()">
+        <p class="">
+          {{parent.post.likesCount}}
+          <i class="fa fa-thumbs-up"> </i>
+        </p>
+      </button>
+      <button class="btn btn-link" title="Mark this post as favorite!" *ngIf="!parent.post.favoriteId" (click)="parent.markFavorite()">
+        <p class="text-secondary">
+          <i class="fa fa-star"></i>
+        </p>
+      </button>
+      <button class="btn btn-link" title="Unmark this post as favorite!" *ngIf="parent.post.favoriteId" (click)="parent.unmarkFavorite()">
         <p class="text-primary">
           <i class="fa fa-star"></i>
         </p>
       </button>
       <a href="{{parent.post.url}}" target="_blank" class="btn btn-link" title="Explore">
         <p class="text-primary">
-          <i class="fa fa-link text-danger"></i>
+          <i class="fa fa-link text-primary"></i>
         </p>
       </a>
     </div>
