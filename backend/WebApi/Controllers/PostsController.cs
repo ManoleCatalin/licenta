@@ -5,13 +5,14 @@ using AutoMapper;
 using Core.Domain;
 using Core.Interfaces;
 using Core.Ordering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Models.Post;
 
 namespace WebApi.Controllers
 {
-    // [Authorize(Policy = "ApiUser")]
+    [Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
@@ -23,22 +24,6 @@ namespace WebApi.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-        //[HttpGet("interestId")]
-        //public ActionResult<List<ReadPostModel>> GetPostsForInterest(, int? pageIndex, int? pageSize)
-        //{
-        //    var posts = _unitOfWork.GetPostsForInterest(interestId, (int)pageIndex, (int)pageSize).ToList();
-
-        //    var readPosts = _mapper.Map<List<ReadPostModel>>(posts);
-        //    for (int i = 0; i < readPosts.Count; i++)
-        //    {
-        //        readPosts[i].Interests = _mapper.Map<List<ReadInterestModel>>(posts[i].PostInterests);
-        //        readPosts[i].LikeId = _unitOfWork.Likes.GetLikeIdOfPostForUser(posts[i].Id, userId);
-        //        readPosts[i].FavoriteId = _unitOfWork.Favorites.GetFavoriteIdOfPostForUser(posts[i].Id, userId);
-        //    }
-
-        //    return Ok(readPosts);
-        //}
 
         [HttpGet]
         public ActionResult<List<ReadPostModel>> Get(Guid userId, bool selfPosts, int? pageIndex, int? pageSize, string orderBy, Guid? interestId)

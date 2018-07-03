@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Core.Domain;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    //[Authorize(Policy = "ApiUser")]
+    [Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
@@ -61,7 +62,6 @@ namespace WebApi.Controllers
         [HttpPost]
         public ActionResult<User> Create([FromBody] CreateUserModel user)
         {
-            // user.Id = Guid.NewGuid();
             User userFromModel = new User()
             {
                 UserName = user.Username,

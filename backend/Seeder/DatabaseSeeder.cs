@@ -46,11 +46,8 @@ namespace Seeder
         {
             _dbService.Database.EnsureCreated();
 
-
-            //if (!_unitOfWork.Interests.Get().Any())
-            //{
             InsertInterests();
-            //}
+           
 
             if (!_unitOfWork.Users.Get().Any())
             {

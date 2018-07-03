@@ -37,10 +37,8 @@ namespace Seeder
                 options.UseSqlServer("Data Source=DESKTOP-LHEDB6C\\SQLEXPRESS;Initial Catalog=Dist;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             });
 
-            // Authentification
             services.AddIdentity<User, IdentityRole<Guid>>(opt =>
             {
-                // Configure identity options
                 opt.Password.RequireDigit = false;
                 opt.Password.RequireLowercase = false;
                 opt.Password.RequireUppercase = false;
@@ -51,7 +49,6 @@ namespace Seeder
                 .AddEntityFrameworkStores<DbService>()
                 .AddDefaultTokenProviders();
 
-            // Build the IoC from the service collection
             var provider = services.BuildServiceProvider();
 
             var userService = provider.GetService<UserManager<User>>();

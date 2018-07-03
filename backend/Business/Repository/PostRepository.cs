@@ -34,33 +34,8 @@ namespace Business.Repository
                 return null;
             }
 
-           // var userInterests = user.UserInterest;
-
-
             var entities = _entities.AsQueryable();
 
-            //return entities.Where(p =>
-            //{
-            //    if (selfPosts)
-            //    {
-            //        if (p.UserId == userId) return true;
-            //    }
-            //    else
-            //    {
-            //        foreach (var postInterest in p.PostInterests)
-            //        {
-            //            foreach (var userInterest in userInterests)
-            //            {
-            //                if (userInterest.InterestId == postInterest.InterestId)
-            //                {
-            //                    return true;
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    return false;
-            //})
             if(selfPosts)
             {
                 entities = entities.Where(p => p.UserId == userId);

@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Core.Domain;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using WebApi.Models.Like;
 
 namespace WebApi.Controllers
 {
-    //[Authorize(Policy = "ApiUser")]
+    [Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
     public class LikesController : ControllerBase

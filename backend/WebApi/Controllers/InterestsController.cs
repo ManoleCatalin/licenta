@@ -7,7 +7,7 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    //[Authorize(Policy = "ApiUser")]
+    [Authorize(Policy = "ApiUser")]
     [Route("api/[controller]")]
     [ApiController]
     public class InterestsController : ControllerBase

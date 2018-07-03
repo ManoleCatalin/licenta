@@ -25,7 +25,6 @@ namespace Persistence
 
         public DbService(DbContextOptions<DbService> options) : base(options)
         {
-            //Database.EnsureCreated();
         }
 
         private static LambdaExpression GetIsDeletedRestriction(Type type)
