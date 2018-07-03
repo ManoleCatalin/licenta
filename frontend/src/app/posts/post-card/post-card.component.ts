@@ -25,7 +25,6 @@ export class PostCardComponent implements OnInit {
   markLiked() {
     this.dataBaseSerivce.likePost(this.post.id, this.authService.getCurrentUserId()).subscribe(
       result => {
-        console.log('like success!');
         this.post.likeId = result['id'];
         ++this.post.likesCount;
       }
@@ -36,7 +35,6 @@ export class PostCardComponent implements OnInit {
 
     this.dataBaseSerivce.favoritePost(this.post.id, this.authService.getCurrentUserId()).subscribe(
       result => {
-        console.log('fav success!');
         this.post.favoriteId = result['id'];
       }
     );
@@ -45,7 +43,6 @@ export class PostCardComponent implements OnInit {
   unmarkLiked() {
     this.dataBaseSerivce.unlikePost(this.post.likeId).subscribe(
       result => {
-        console.log('unlike success!');
         this.post.likeId = null;
         --this.post.likesCount;
       }
@@ -56,7 +53,6 @@ export class PostCardComponent implements OnInit {
 
     this.dataBaseSerivce.unfavoritePost(this.post.favoriteId).subscribe(
       result => {
-        console.log('unfav success!');
         this.post.favoriteId = null;
       }
     );

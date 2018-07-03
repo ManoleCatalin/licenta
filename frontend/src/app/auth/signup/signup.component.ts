@@ -20,13 +20,8 @@ export class SignupComponent implements OnInit {
     const password = form.value.password;
     const confirmPassword = form.value.confirmPassword;
     const username = form.value.username;
-    console.log('email' + email);
-    console.log('password' + password);
-    console.log('confirmPassword' + confirmPassword);
-    console.log('username' + username);
 
     if (confirmPassword !== password) {
-      console.log('password not match');
       this.error = true;
       return;
     }

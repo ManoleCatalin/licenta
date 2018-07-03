@@ -27,8 +27,6 @@ export class SigninComponent implements OnInit {
 
       this.authService.saveToken(result['auth_token']);
 
-      console.log('tk: ', result['auth_token']);
-
       this.router.navigate(['/posts/freshness']);
     }, error => {
       this.error = true;

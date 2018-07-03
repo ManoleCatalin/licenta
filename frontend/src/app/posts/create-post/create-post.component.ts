@@ -36,15 +36,12 @@ export class CreatePostComponent implements OnInit {
 
     const createPostModel = new CreatePostModel(
       this.authService.getCurrentUserId(),
-      title, url, desc, addedInterests // TODO: add the interests here
+      title, url, desc, addedInterests
     );
 
     this.dataStorageService.createPost(createPostModel).subscribe(response => {
-      console.log('response');
-      // this.activeModal.dismiss('Cross click');
       this.created = true;
     }, error => {
-      console.log('error');
       this.error = true;
     });
   }
@@ -60,25 +57,18 @@ export class CreatePostComponent implements OnInit {
   }
 
   displayPostsOfInterest(interest: string) {
-    console.log('displayPostsOfInterest ' + interest);
     this.activeModal.close('done');
     this.router.navigate(['/posts', 'interest', interest]);
   }
 
   removeInterestFromSelected(interest: string) {
-    console.log(this.selectedInterests.length);
     this.selectedInterests = this.selectedInterests.filter(x => x.id !== interest);
-    console.log(this.selectedInterests.length);
   }
 
   search = (text$: Observable<string>) => {
     this.dataStorageService
     .getAvailableInterests(1, 400).subscribe(ints => {
-      console.log('ints: ', ints);
       this.interests = ints;
-    },
-    error => {
-      console.log('error: ' + error);
     }
     );
 
@@ -90,7 +80,6 @@ export class CreatePostComponent implements OnInit {
           ? []
           : this.interests.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
           .map(v => v.name).map(v => {
-            console.log(v);
             return v;
           })
           .slice(0, 10);
