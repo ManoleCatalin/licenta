@@ -8,7 +8,7 @@ namespace Core.Interfaces
     public interface IRepository<TEntity> where TEntity : class
     {
         TEntity Get(Guid id);
-        IEnumerable<TEntity> Get(int page = 1, int pageSize = 1, Ordering<TEntity> ordering = null);
+        IEnumerable<TEntity> Get(int pageIndex = 1, int pageSize = 1, Ordering<TEntity> ordering = null);
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 

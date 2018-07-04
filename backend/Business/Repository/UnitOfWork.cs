@@ -46,7 +46,6 @@ namespace Business.Repository
         public IEnumerable<Post> GetPostsForInterest(Guid interestId, int pageIndex = 1, int pageSize = 1)
         {
             return Posts.GetPostsForInterest(interestId, pageIndex, pageSize);
-
         }
 
         public IEnumerable<Post> GetPostsForUser(Guid userId, bool selfPosts, int pageIndex = 1, int pageSize = 1, Ordering<Post> ordering = null, Guid? interestId = null)
