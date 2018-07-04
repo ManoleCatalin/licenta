@@ -5,12 +5,9 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { DropdownDirective } from './shared/dropdown.directive';
-import { HeaderComponent } from './core/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundModule } from './pagenotfound/pagenotfound.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
-import { PostsRoutingModule } from './posts/posts-routing.module';
 import { PostsModule } from './posts/posts.module';
 import { HttpClientModule } from '@angular/common/http';
 

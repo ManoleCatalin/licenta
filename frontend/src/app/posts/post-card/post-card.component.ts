@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Post } from '../post.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PreviewPostComponent } from '../preview-post/preview-post.component';
 import { DataStorageService } from '../../shared/data-storage.service';
+import { Post } from '../post.model';
+import { PreviewPostComponent } from '../preview-post/preview-post.component';
 import { AuthService } from '../../auth/auth.service';
+
 
 @Component({
   selector: 'app-post-card',
